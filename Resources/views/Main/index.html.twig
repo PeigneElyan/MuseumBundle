@@ -1,24 +1,22 @@
-﻿<!DOCTYPE html>
-<meta charset='utf-8'>
-<html>
-    <head>
-        <title>Bienvenue sur ma première page !</title>
-    </head>
-    <body>
-		
-		<ul>
-          <li><a href="{{ path('home') }}">Accueil</a></li>
-          <li><a href="{{ path('objet_add') }}">Ajouter un objet</a></li>
-		  <li><a href="{{ path('etage_add') }}">Ajouter un etage</a></li>
-        </ul>
-	
-        <h1>Hello World !</h1>
-        
-        <p>
+{# src/KE/MuseumBundle/Resources/views/Main/index.html.twig #}
+
+{% extends "::base.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+  {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
+  <h1>Accueil</h1>
+
+  <hr>
+	<p>
             Le Hello World est un grand classique en programmation.
             Il signifie énormément, car cela veut dire que vous avez
             réussi à exécuter le programme pour accomplir une tâche simple :
             afficher ce hello world !
-        </p>
-    </body>
-</html>
+    </p>
+
+{% endblock %}

@@ -1,10 +1,12 @@
-﻿<!DOCTYPE html>
-<meta charset='utf-8'>
-<html>
-    <head>
-        <title>Bienvenue sur ma première page avec OpenClassrooms !</title>
-    </head>
-    <body>
+{# src/KE/MuseumBundle/Resources/views/Main/index.html.twig #}
+
+{% extends "::base.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block body %}
         <h1>Page Etage</h1>
         
         <p>
@@ -13,5 +15,4 @@
             réussi à exécuter le programme pour accomplir une tâche simple :
             afficher ce hello world !
         </p>
-    </body>
-</html>
+{% endblock %}
