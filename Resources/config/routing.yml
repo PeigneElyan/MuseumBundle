@@ -1,0 +1,47 @@
+home:
+    path:      /
+    defaults:  { _controller: KEMuseumBundle:Main:index }
+
+objet_search:
+    path:      /objet/search/{id}
+    defaults:  { _controller: KEMuseumBundle:Objet:view }
+    requirements:
+        id: \d+
+
+objet_add:
+    path:      /objet/add
+    defaults:  { _controller: KEMuseumBundle:Objet:add }
+
+objet_edit:
+    path:      /objet/edit/{id}
+    defaults:  { _controller: KEMuseumBundle:Objet:edit }
+    requirements:
+        id: \d+
+
+objet_delete:
+    path:      /objet/delete/{id}
+    defaults:  { _controller: KEMuseumBundle:Objet:delete }
+    requirements:
+        id: \d+
+
+etage_search:
+    path:      /etage/search/{id}
+    defaults:  { _controller: KEMuseumBundle:Etage:view }
+    requirements:
+        id: \d+
+
+etage_add:
+    path:      /etage/add
+    defaults:  { _controller: KEMuseumBundle:Etage:add }
+
+etage_edit:
+    path:      /etage/edit/{id}
+    defaults:  { _controller: KEMuseumBundle:Etage:edit }
+    requirements:
+        id: \d+
+
+etage_delete:
+    path:      /etage/delete/{id}
+    defaults:  { _controller: KEMuseumBundle:Etage:delete }
+    requirements:
+        id: \d+

@@ -1,0 +1,10 @@
+{{ form(form, {'method': 'GET'}) }}
+
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.name) }}
+    {{ form_row(form.dueDate) }}
+
+    <input type="submit" value="Envoyez le formulaire"/>
+{{ form_end(form) }}
