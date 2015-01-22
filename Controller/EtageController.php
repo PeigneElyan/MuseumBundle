@@ -29,6 +29,18 @@ class EtageController extends Controller
 		return new Response($content);
     }  
 	
+	public function editAction()
+    {
+        $content = $this->get('templating')->render('KEMuseumBundle:Etage:index.html.twig');
+		return new Response($content);
+    } 
+	
+	public function deleteAction()
+    {
+        $content = $this->get('templating')->render('KEMuseumBundle:Etage:index.html.twig');
+		return new Response($content);
+    } 
+	
     public function indexAction()
     {
         $content = $this->get('templating')->render('KEMuseumBundle:Etage:index.html.twig');
