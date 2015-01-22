@@ -48,7 +48,13 @@ class Objet
      * @ORM\Column(name="Hauteur", type="integer")
      */
     private $hauteur;
-
+	
+	public function __construct()
+  {
+    $this->nom         = null;
+    $this->longueur   = null;
+    $this->largeur = null;
+  }
 
     /**
      * Get id
