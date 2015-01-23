@@ -28,12 +28,6 @@ class ObjetController extends Controller
         $content = $this->get('templating')->render('KEMuseumBundle:Objet:index.html.twig');
 		return new Response($content);
     } 
-	
-    public function indexAction()
-    {
-        $content = $this->get('templating')->render('KEMuseumBundle:Objet:index.html.twig');
-		return new Response($content);
-    }   
 
 	public function addAction(Request $request)
     {
@@ -41,9 +35,11 @@ class ObjetController extends Controller
 		$objet = new Objet();
 
 		$form = $this->get('form.factory')->createBuilder('form', $objet)
+			->add('code','text')
 			->add('nom','text')
 			->add('longueur','text')
 			->add('largeur','text')
+			->add('hauteur','text')
 			->add('save','submit')
 			->getForm()
 			;
@@ -52,13 +48,25 @@ class ObjetController extends Controller
 			
 		if ($form->isValid()) {
 			$em = $this->getDoctrine()->getManager();				
-			$em->persist($advert);
+			$em->persist($objet);
 			$em->flush();
+			
+			return $this->redirect($this->generateUrl('home'));
+
 		}
 			
-		return $this->render('KEMuseumBundle:Objet:index.html.twig', array(
+		return $this->render('KEMuseumBundle:Objet:add.html.twig', array(
 			'form' => $form->createView(),
 		));
     } 
+	
+	public function indexEditAction(Request $request)
+    {
+        $form = $this->get('form.factory')->createBuilder('form', $objet)
+			->add('code','text')
+			->add('save','submit')
+			->getForm()
+			;
+    }   
 }
 	?>

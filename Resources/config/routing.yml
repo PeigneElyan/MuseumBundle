@@ -12,6 +12,13 @@ objet_add:
     path:      /objet/add
     defaults:  { _controller: KEMuseumBundle:Objet:add }
 
+
+objet_index_edit:
+    path:      /objet/edit/index
+    defaults:  { _controller: KEMuseumBundle:Objet:indexEdit }
+    requirements:
+        id: \d+
+
 objet_edit:
     path:      /objet/edit/{id}
     defaults:  { _controller: KEMuseumBundle:Objet:edit }

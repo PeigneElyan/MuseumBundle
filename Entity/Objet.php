@@ -21,6 +21,13 @@ class Objet
      */
     private $id;
 
+	 /**
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=255)
+     */
+    private $code;
+	
     /**
      * @var string
      *
@@ -51,6 +58,7 @@ class Objet
 	
 	public function __construct()
   {
+	$this->code         = null;
     $this->nom         = null;
     $this->longueur   = null;
     $this->largeur = null;
@@ -65,6 +73,30 @@ class Objet
     {
         return $this->id;
     }
+	
+	 /**
+     * Set code
+     *
+     * @param string $code
+     * @return Objet
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+	
+
+    /**
+     * Get code
+     *
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
 
     /**
      * Set nom
@@ -78,6 +110,8 @@ class Objet
 
         return $this;
     }
+	
+	
 
     /**
      * Get nom
