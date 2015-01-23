@@ -16,39 +16,43 @@ objet_add:
 objet_index_edit:
     path:      /objet/edit/index
     defaults:  { _controller: KEMuseumBundle:Objet:indexEdit }
-    requirements:
-        id: \d+
 
 objet_edit:
-    path:      /objet/edit/{id}
+    path:      /objet/edit/{code}
     defaults:  { _controller: KEMuseumBundle:Objet:edit }
-    requirements:
-        id: \d+
+
+
+objet_index_delete:
+    path:      /objet/delete/index
+    defaults:  { _controller: KEMuseumBundle:Objet:indexDelete }
 
 objet_delete:
-    path:      /objet/delete/{id}
+    path:      /objet/delete/{code}
     defaults:  { _controller: KEMuseumBundle:Objet:delete }
-    requirements:
-        id: \d+
-
-etage_search:
-    path:      /etage/search/{id}
-    defaults:  { _controller: KEMuseumBundle:Etage:view }
-    requirements:
-        id: \d+
 
 etage_add:
     path:      /etage/add
     defaults:  { _controller: KEMuseumBundle:Etage:add }
 
+etage_index_edit:
+    path:      /etage/edit/index
+    defaults:  { _controller: KEMuseumBundle:Etage:indexEdit }
+
 etage_edit:
-    path:      /etage/edit/{id}
+    path:      /etage/edit/{num_armoire_etage}
     defaults:  { _controller: KEMuseumBundle:Etage:edit }
-    requirements:
-        id: \d+
+
+
+etage_index_delete:
+    path:      /etage/delete/index
+    defaults:  { _controller: KEMuseumBundle:Etage:indexDelete }
 
 etage_delete:
-    path:      /etage/delete/{id}
+    path:      /etage/delete/{num_armoire_etage}
     defaults:  { _controller: KEMuseumBundle:Etage:delete }
+
+etage_search:
+    path:      /etage/search/{id}
+    defaults:  { _controller: KEMuseumBundle:Etage:view }
     requirements:
         id: \d+
