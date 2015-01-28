@@ -53,7 +53,7 @@ class EtageController extends Controller
 		$form->handleRequest($request);
 			
 		if ($form->isValid()) {
-			$etage = $form->get('code')->getData();
+			$code = $form->get('code')->getData();
 			return $this->redirect($this->generateUrl('etage_edit', array(
 			'code' => $code)));
 		}	
@@ -104,7 +104,7 @@ class EtageController extends Controller
 			
 		if ($form->isValid()) {
 			$code = $form->get('code')->getData();
-			return $this->redirect($this->generateUrl('etage', array(
+			return $this->redirect($this->generateUrl('etage_delete', array(
 			'code' => $code)));
 		}	
 		return $this->render('KEMuseumBundle:Etage:indexDelete.html.twig', array(
@@ -139,6 +139,56 @@ class EtageController extends Controller
 		}
 
 		return $this->render('KEMuseumBundle:Etage:delete.html.twig', array(
+			'form'   => $form->createView()
+			));
+    } 
+	
+	public function indexConsultAction(Request $request)
+    {
+        $form = $this->get('form.factory')->createBuilder('form')
+			->add('code','text')
+			->add('save','submit')
+			->getForm()
+			;
+			
+		$form->handleRequest($request);
+			
+		if ($form->isValid()) {
+			$code = $form->get('code')->getData();
+			return $this->redirect($this->generateUrl('etage_consult', array(
+			'code' => $code)));
+		}	
+		return $this->render('KEMuseumBundle:Etage:indexConsult.html.twig', array(
+			'form' => $form->createView()
+		));
+    }   
+	
+	public function consultAction($code, Request $request)
+    {
+       $em = $this->getDoctrine()->getManager();
+
+		$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneByCode($code);
+
+		if (null === $etage) {
+			throw new NotFoundHttpException("L'étage de numéro ".$code." n'existe pas.");
+		}
+
+		
+		$form = $this->get('form.factory')->createBuilder('form', $etage)
+			->add('code','text')
+			->add('longueur','text')
+			->add('largeur','text')
+			->add('hauteur','text')
+			->add('save','submit')
+			->getForm()
+			;
+
+		if ($form->handleRequest($request)->isValid()) {
+			$em->flush();
+			return $this->redirect($this->generateUrl('home'));
+		}
+
+		return $this->render('KEMuseumBundle:Etage:consult.html.twig', array(
 			'form'   => $form->createView()
 			));
     } 

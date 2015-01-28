@@ -13,10 +13,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class ObjetController extends Controller
 {
 	
-	public function viewAction($id)
-	{
-		return new Response("Affichage de l'annonce d'id : ".$id);
-	} 
 
 	public function addAction(Request $request)
     {
@@ -148,6 +144,57 @@ class ObjetController extends Controller
 		}
 
 		return $this->render('KEMuseumBundle:Objet:delete.html.twig', array(
+			'form'   => $form->createView()
+			));
+    } 
+	
+	public function indexPlaceAction(Request $request)
+    {
+        $form = $this->get('form.factory')->createBuilder('form')
+			->add('code','text')
+			->add('save','submit')
+			->getForm()
+			;
+			
+		$form->handleRequest($request);
+			
+		if ($form->isValid()) {
+			$code = $form->get('code')->getData();
+			return $this->redirect($this->generateUrl('objet_place', array(
+			'code' => $code)));
+		}	
+		return $this->render('KEMuseumBundle:Objet:indexPlace.html.twig', array(
+			'form' => $form->createView()
+		));
+    }   
+	
+	public function placeAction($code, Request $request)
+    {
+       $em = $this->getDoctrine()->getManager();
+
+		$objet = $em->getRepository('KEMuseumBundle:Objet')->findOneByCode($code);
+
+		if (null === $objet) {
+			throw new NotFoundHttpException("L'objet de code ".$code." n'existe pas.");
+		}
+
+		
+		$form = $this->get('form.factory')->createBuilder('form', $objet)
+			->add('code','text')
+			->add('nom','text')
+			->add('longueur','text')
+			->add('largeur','text')
+			->add('hauteur','text')
+			->add('save','submit')
+			->getForm()
+			;
+
+		if ($form->handleRequest($request)->isValid()) {
+			$em->flush();
+			return $this->redirect($this->generateUrl('home'));
+		}
+
+		return $this->render('KEMuseumBundle:Objet:place.html.twig', array(
 			'form'   => $form->createView()
 			));
     } 

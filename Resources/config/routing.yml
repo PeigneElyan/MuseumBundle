@@ -30,6 +30,14 @@ objet_delete:
     path:      /objet/delete/{code}
     defaults:  { _controller: KEMuseumBundle:Objet:delete }
 
+objet_index_place:
+    path:      /objet/place/index
+    defaults:  { _controller: KEMuseumBundle:Objet:indexPlace }
+
+objet_place:
+    path:      /objet/place/{code}
+    defaults:  { _controller: KEMuseumBundle:Objet:place }
+
 etage_add:
     path:      /etage/add
     defaults:  { _controller: KEMuseumBundle:Etage:add }
@@ -39,7 +47,7 @@ etage_index_edit:
     defaults:  { _controller: KEMuseumBundle:Etage:indexEdit }
 
 etage_edit:
-    path:      /etage/edit/{num_armoire_etage}
+    path:      /etage/edit/{code}
     defaults:  { _controller: KEMuseumBundle:Etage:edit }
 
 
@@ -48,11 +56,13 @@ etage_index_delete:
     defaults:  { _controller: KEMuseumBundle:Etage:indexDelete }
 
 etage_delete:
-    path:      /etage/delete/{num_armoire_etage}
+    path:      /etage/delete/{code}
     defaults:  { _controller: KEMuseumBundle:Etage:delete }
 
-etage_search:
-    path:      /etage/search/{id}
-    defaults:  { _controller: KEMuseumBundle:Etage:view }
-    requirements:
-        id: \d+
+etage_index_consult:
+    path:      /etage/consult/index
+    defaults:  { _controller: KEMuseumBundle:Etage:indexConsult }
+
+etage_consult:
+    path:      /etage/consult/{code}
+    defaults:  { _controller: KEMuseumBundle:Etage:consult }
