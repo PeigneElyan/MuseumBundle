@@ -1,0 +1,83 @@
+{# src/KE/MuseumBundle/Resources/views/Main/add.html.twig #}
+
+{% extends "::base.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+        <h1>Ajout d'un étage</h1>
+        
+        <div class="well">
+			{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+			{# Les erreurs générales du formulaire. #}
+			{{ form_errors(form) }}
+	
+			<div class="form-group">
+				{# Génération du label. #}
+				{{ form_label(form.code, "Code", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+	
+				{# Affichage des erreurs pour ce champ précis. #}
+				{{ form_errors(form.code) }}
+
+				<div class="col-sm-4">
+					{# Génération de l'input. #}
+					{{ form_widget(form.code, {'attr': {'class': 'form-control'}}) }}
+				</div>
+			</div>
+	
+			
+			<div class="form-group">
+				{# Génération du label. #}
+				{{ form_label(form.longueur, "Longueur", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+	
+				{# Affichage des erreurs pour ce champ précis. #}
+				{{ form_errors(form.longueur) }}
+
+				<div class="col-sm-4">
+					{# Génération de l'input. #}
+					{{ form_widget(form.longueur, {'attr': {'class': 'form-control'}}) }}
+				</div>
+			</div>
+			
+			<div class="form-group">
+				{# Génération du label. #}
+				{{ form_label(form.largeur, "Largeur", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+	
+				{# Affichage des erreurs pour ce champ précis. #}
+				{{ form_errors(form.largeur) }}
+
+				<div class="col-sm-4">
+					{# Génération de l'input. #}
+					{{ form_widget(form.largeur, {'attr': {'class': 'form-control'}}) }}
+				</div>
+			</div>
+			
+			<div class="form-group">
+				{# Génération du label. #}
+				{{ form_label(form.hauteur, "Hauteur", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+	
+				{# Affichage des erreurs pour ce champ précis. #}
+				{{ form_errors(form.hauteur) }}
+
+				<div class="col-sm-4">
+					{# Génération de l'input. #}
+					{{ form_widget(form.hauteur, {'attr': {'class': 'form-control'}}) }}
+				</div>
+			</div>
+			
+			<a href="{{ path('home') }}" class="btn btn-default">
+				<i class="glyphicon glyphicon-chevron-left"></i>
+				Retour à l'accueil
+			</a>
+			{{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+
+			{{ form_rest(form) }}
+  
+			{# Fermeture de la balise <form> du formulaire HTML #}
+			{{ form_end(form) }}
+		</div>
+    </body>
+{% endblock %}

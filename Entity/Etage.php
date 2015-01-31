@@ -21,6 +21,13 @@ class Etage
      */
     private $id;
 
+	 /**
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=255)
+     */
+    private $code;
+	
     /**
      * @var integer
      *
@@ -53,6 +60,29 @@ class Etage
         return $this->id;
     }
 
+	/**
+     * Set code
+     *
+     * @param string $code
+     * @return Etage
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+	
     /**
      * Set longueur
      *
@@ -105,7 +135,7 @@ class Etage
      * @param integer $hauteur
      * @return Etage
      */
-    public function setHauteur($heuteur)
+    public function setHauteur($hauteur)
     {
         $this->hauteur = $hauteur;
     
