@@ -173,29 +173,15 @@ class ObjetController extends Controller
        $em = $this->getDoctrine()->getManager();
 
 		$objet = $em->getRepository('KEMuseumBundle:Objet')->findOneByCode($code);
+		$etages = $em->getRepository('KEMuseumBundle:Etage')->findAll();
+		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findAll();
 
 		if (null === $objet) {
 			throw new NotFoundHttpException("L'objet de code ".$code." n'existe pas.");
 		}
 
-		
-		$form = $this->get('form.factory')->createBuilder('form', $objet)
-			->add('code','text')
-			->add('nom','text')
-			->add('longueur','text')
-			->add('largeur','text')
-			->add('hauteur','text')
-			->add('save','submit')
-			->getForm()
-			;
-
-		if ($form->handleRequest($request)->isValid()) {
-			$em->flush();
-			return $this->redirect($this->generateUrl('home'));
-		}
-
 		return $this->render('KEMuseumBundle:Objet:place.html.twig', array(
-			'form'   => $form->createView()
+			'etages' => $etages , 'ordres' => $ordres, 'objet' => $objet
 			));
     } 
 	

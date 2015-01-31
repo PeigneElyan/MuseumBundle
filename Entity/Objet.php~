@@ -5,12 +5,12 @@ namespace KE\MuseumBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Etage
+ * Objet
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KE\MuseumBundle\Entity\EtageRepository")
+ * @ORM\Entity(repositoryClass="KE\MuseumBundle\Entity\ObjetRepository")
  */
-class Etage
+class Objet
 {
     /**
      * @var integer
@@ -29,43 +29,41 @@ class Etage
     private $code;
 	
     /**
+     * @var string
+     *
+     * @ORM\Column(name="Nom", type="string", length=255)
+     */
+    private $nom;
+
+    /**
      * @var integer
      *
-     * @ORM\Column(name="longueur", type="integer")
+     * @ORM\Column(name="Longueur", type="integer")
      */
     private $longueur;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="largeur", type="integer")
+     * @ORM\Column(name="Largeur", type="integer")
      */
     private $largeur;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="hauteur", type="integer")
+     * @ORM\Column(name="Hauteur", type="integer")
      */
     private $hauteur;
 	
-	 /**
-     * @var integer
-     *
-     * @ORM\Column(name="placeDisponible", type="integer")
-     */
-    private $placeDisponible;
+	public function __construct()
+  {
+	$this->code         = null;
+    $this->nom         = null;
+    $this->longueur   = null;
+    $this->largeur = null;
+  }
 
-	/**
-     * on Create
-     *
-     * @return Etage
-     */
-	public function onCreate(){
-		$this->setPlaceDisponible($this->longueur);
-		return $this;
-	}
-	
     /**
      * Get id
      *
@@ -75,19 +73,20 @@ class Etage
     {
         return $this->id;
     }
-
-	/**
+	
+	 /**
      * Set code
      *
      * @param string $code
-     * @return Etage
+     * @return Objet
      */
     public function setCode($code)
     {
         $this->code = $code;
-    
+
         return $this;
     }
+	
 
     /**
      * Get code
@@ -98,17 +97,42 @@ class Etage
     {
         return $this->code;
     }
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     * @return Objet
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
 	
+	
+
+    /**
+     * Get nom
+     *
+     * @return string 
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
     /**
      * Set longueur
      *
      * @param integer $longueur
-     * @return Etage
+     * @return Objet
      */
     public function setLongueur($longueur)
     {
         $this->longueur = $longueur;
-    
+
         return $this;
     }
 
@@ -126,12 +150,12 @@ class Etage
      * Set largeur
      *
      * @param integer $largeur
-     * @return Etage
+     * @return Objet
      */
     public function setLargeur($largeur)
     {
         $this->largeur = $largeur;
-    
+
         return $this;
     }
 
@@ -149,12 +173,12 @@ class Etage
      * Set hauteur
      *
      * @param integer $hauteur
-     * @return Etage
+     * @return Objet
      */
     public function setHauteur($hauteur)
     {
         $this->hauteur = $hauteur;
-    
+
         return $this;
     }
 
@@ -166,28 +190,5 @@ class Etage
     public function getHauteur()
     {
         return $this->hauteur;
-    }
-	
-	/**
-     * Set placeDisponible
-     *
-     * @param integer $placeDisponible
-     * @return Etage
-     */
-    public function setPlaceDisponible($placeDisponible)
-    {
-        $this->placeDisponible = $placeDisponible;
-    
-        return $this;
-    }
-	
-	/**
-     * Get placeDisponible
-     *
-     * @return integer 
-     */
-    public function getPlaceDisponible()
-    {
-        return $this->placeDisponible;
     }
 }

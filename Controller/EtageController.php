@@ -30,7 +30,8 @@ class EtageController extends Controller
 		$form->handleRequest($request);
 			
 		if ($form->isValid()) {
-			$em = $this->getDoctrine()->getManager();				
+			$em = $this->getDoctrine()->getManager();		
+			$etage->onCreate();			
 			$em->persist($etage);
 			$em->flush();
 			

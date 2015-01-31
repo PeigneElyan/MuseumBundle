@@ -9,87 +9,65 @@
 {% block body %}
         <h1>Mise en rayon d'un objet</h1>
         
-        <div class="well">
-			{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-
-			{# Les erreurs générales du formulaire. #}
-			{{ form_errors(form) }}
-	
-			<div class="form-group">
-				{# Génération du label. #}
-				{{ form_label(form.code, "Code", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-	
-				{# Affichage des erreurs pour ce champ précis. #}
-				{{ form_errors(form.code) }}
-
-				<div class="col-sm-4">
-					{# Génération de l'input. #}
-					{{ form_widget(form.code, {'attr': {'class': 'form-control'}}) }}
-				</div>
+   {# <div class="well">#}
+		<div class="table-responsive">
+			<h2>Caractéristique de l'objet :</h2>
+			<div class="well">
+			<table class="table">
+				<tbody>
+					<tr>
+						<td> <b>Code</b> </td>
+						<td> {{objet.code}} </td>
+					</tr>
+					<tr>
+						<td> <b>Nom </b></td>
+						<td> {{objet.nom}} </td>
+					</tr>
+					<tr>
+						<td> <b>Longueur </b></td>
+						<td> {{objet.longueur}} </td>
+					</tr>
+					<tr>
+						<td> <b>Largeur </b></td>
+						<td> {{objet.largeur}} </td>
+					</tr>
+					<tr>
+						<td> <b>Hauteur </b></td>
+						<td> {{objet.hauteur}} </td>
+					</tr>
+				</tbody>
+			</table>
 			</div>
-	
-			<div class="form-group">
-				{# Génération du label. #}
-				{{ form_label(form.nom, "Nom", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-	
-				{# Affichage des erreurs pour ce champ précis. #}
-				{{ form_errors(form.nom) }}
-
-				<div class="col-sm-4">
-					{# Génération de l'input. #}
-					{{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
-				</div>
-			</div>
-			
-			<div class="form-group">
-				{# Génération du label. #}
-				{{ form_label(form.longueur, "Longueur", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-	
-				{# Affichage des erreurs pour ce champ précis. #}
-				{{ form_errors(form.longueur) }}
-
-				<div class="col-sm-4">
-					{# Génération de l'input. #}
-					{{ form_widget(form.longueur, {'attr': {'class': 'form-control'}}) }}
-				</div>
-			</div>
-			
-			<div class="form-group">
-				{# Génération du label. #}
-				{{ form_label(form.largeur, "Largeur", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-	
-				{# Affichage des erreurs pour ce champ précis. #}
-				{{ form_errors(form.largeur) }}
-
-				<div class="col-sm-4">
-					{# Génération de l'input. #}
-					{{ form_widget(form.largeur, {'attr': {'class': 'form-control'}}) }}
-				</div>
-			</div>
-			
-			<div class="form-group">
-				{# Génération du label. #}
-				{{ form_label(form.hauteur, "Hauteur", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-	
-				{# Affichage des erreurs pour ce champ précis. #}
-				{{ form_errors(form.hauteur) }}
-
-				<div class="col-sm-4">
-					{# Génération de l'input. #}
-					{{ form_widget(form.hauteur, {'attr': {'class': 'form-control'}}) }}
-				</div>
-			</div>
-			
-			<a href="{{ path('home') }}" class="btn btn-default">
-				<i class="glyphicon glyphicon-chevron-left"></i>
-				Retour à l'accueil
-			</a>
-			{{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
-
-			{{ form_rest(form) }}
-  
-			{# Fermeture de la balise <form> du formulaire HTML #}
-			{{ form_end(form) }}
 		</div>
+		
+		<div class="table-responsive">
+			<h2>Etages :</h2>
+			<div class="well">
+			<table class="table">
+				<thead>
+				<tr>
+					<th>Code Etage</th>
+					<th>Etat</th>
+					<th>Place restante</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for etage in etages %}
+				<tr>
+					<td>{{etage.code}}</td>
+					<td>
+						{% if etage.placeDisponible > objet.longueur %}
+							<font color="green"> OK.</font>
+						{% else %}
+							<font color="red"> Pas assez de place.</font>
+						{% endif %}
+					</td>
+					<td>{{etage.placeDisponible}}</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
     </body>
 {% endblock %}
