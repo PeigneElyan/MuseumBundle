@@ -9,3 +9,7 @@ function affiche(obj){
 		document.getElementById('sous'+id).style.display = "block";
 	}
 }
+
+$(document).ready( function() {
+$('.dropdown-toggle').dropdown();
+});
