@@ -50,6 +50,9 @@ etage_edit:
     path:      /etage/edit/{code}
     defaults:  { _controller: KEMuseumBundle:Etage:edit }
 
+etage_placement_objet:
+    path:      /etage/placement_objet/{codeEtage}/{codeObjet}
+    defaults:  { _controller: KEMuseumBundle:Etage:placementObjet }
 
 etage_index_delete:
     path:      /etage/delete/index

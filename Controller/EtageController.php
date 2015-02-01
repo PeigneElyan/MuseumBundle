@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 class EtageController extends Controller
 {
@@ -143,6 +144,42 @@ class EtageController extends Controller
 			'form'   => $form->createView()
 			));
     } 
+	
+	public function placementObjetAction($codeEtage, $codeObjet){
+	
+		$em = $this->getDoctrine()->getManager();
+		$objets = $em->getRepository('KEMuseumBundle:Objet')->findByCode($codeObjet);
+		$etages = $em->getRepository('KEMuseumBundle:Etage')->findByCode($codeEtage);
+		$objet = $objets[0];
+		$etage = $etages[0];
+		
+		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findByIdObjet($objet->getId());
+		$ordre = $ordres[0];
+		
+		$ordre->setIdEtage($etage->getId());
+		$etage->setPlaceDisponible($etage->getPlaceDisponible() - $objet->getLongueur());
+		
+		$rsm = new ResultSetMapping($em);
+		// build rsm here
+
+		$query = $em->createNativeQuery('SELECT COUNT(*) FROM Ordre WHERE id_etage = ?', $rsm);
+		$query->setParameter(1, $etage->getId());
+
+		$count = $query->getResult();
+		if($count == null){
+			$count=0;
+		}
+		$count+=1;
+		$ordre->setOrdre($count);
+		
+		$em->persist($ordre);
+		$em->persist($etage);
+		$em->flush();
+	
+		//return new Response("Count = ".$count);
+		return $this->redirect($this->generateUrl('etage_consult', array(
+			'code' => $codeEtage)));
+	}
 	
 	public function indexConsultAction(Request $request)
     {
