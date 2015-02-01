@@ -183,6 +183,9 @@ class EtageController extends Controller
 	
 	public function indexConsultAction(Request $request)
     {
+		$em = $this->getDoctrine()->getManager();
+		$etages = $em->getRepository('KEMuseumBundle:Etage')->findAll();
+		
         $form = $this->get('form.factory')->createBuilder('form')
 			->add('code','text')
 			->add('save','submit')
@@ -197,7 +200,7 @@ class EtageController extends Controller
 			'code' => $code)));
 		}	
 		return $this->render('KEMuseumBundle:Etage:indexConsult.html.twig', array(
-			'form' => $form->createView()
+			'form' => $form->createView(), 'etages' => $etages
 		));
     }   
 	

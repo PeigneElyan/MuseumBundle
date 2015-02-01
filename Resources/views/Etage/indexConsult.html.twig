@@ -9,6 +9,7 @@
 {% block body %}
         <h1>Consultation d'un étage</h1>
         
+		<h3>Recherche d'un étage</h3>
         <div class="well">
 			{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
@@ -39,6 +40,43 @@
   
 			{# Fermeture de la balise <form> du formulaire HTML #}
 			{{ form_end(form) }}
+		</div>
+		<h3>Liste des étages</h3>
+        <div class="well">
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Code Etage</th>
+							<th>Etat</th>
+							<th>Place restante</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					{% for etage in etages %}
+						<tr>
+							<td>{{etage.code}}</td>
+							<td>
+								{% if etage.placeDisponible == etage.longueur %}
+									<font color="green"> Vide</font>
+								{% elseif etage.placeDisponible > 0%}
+									<font color="blue"> Disponible</font>
+								{% else %}
+									<font color="red"> Plein</font>
+								{% endif %}
+							</td>
+							<td>{{etage.placeDisponible}}</td>
+							<td>
+								<a href="{{ path('etage_consult', {'code': etage.code}) }}" class="btn btn-default">
+									Consulter dans cette etage
+								</a>
+					</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+			</div>
 		</div>
     </body>
 {% endblock %}
