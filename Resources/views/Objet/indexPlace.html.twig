@@ -9,6 +9,7 @@
 {% block body %}
         <h1>Mise en rayon d'un objet</h1>
         
+		<h3>Recherche d'un objet</h3>
         <div class="well">
 			{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
@@ -39,6 +40,43 @@
   
 			{# Fermeture de la balise <form> du formulaire HTML #}
 			{{ form_end(form) }}
+		</div>
+		
+		<h3>Liste des objets non placé</h3>
+		<div class="well">
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Code Objet</th>
+							<th>Nom</th>
+							<th>Longueur</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for ordre in ordres %}
+							{% if ordre.idEtage is null %}
+								{% for objet in objets %}
+									{% if objet.id == ordre.idObjet %}
+										<tr>
+											<td>{{objet.code}}</td>
+											<td>{{objet.nom}}</td>
+											<td>{{objet.longueur}}</td>
+											<td>
+												<a href="{{ path('objet_place', {'code': objet.code}) }}" class="btn btn-default">
+													<i class="glyphicon glyphicon-chevron-right"></i>
+													Placer cette Objet
+												</a>
+											</td>
+										</tr>
+									{% endif %}
+								{% endfor %}
+							{% endif %}
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
 		</div>
     </body>
 {% endblock %}

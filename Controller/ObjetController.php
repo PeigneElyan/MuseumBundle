@@ -155,6 +155,10 @@ class ObjetController extends Controller
 	
 	public function indexPlaceAction(Request $request)
     {
+		$em = $this->getDoctrine()->getManager();
+		$objets = $em->getRepository('KEMuseumBundle:Objet')->findAll();
+		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findAll();
+		
         $form = $this->get('form.factory')->createBuilder('form')
 			->add('code','text')
 			->add('save','submit')
@@ -169,7 +173,7 @@ class ObjetController extends Controller
 			'code' => $code)));
 		}	
 		return $this->render('KEMuseumBundle:Objet:indexPlace.html.twig', array(
-			'form' => $form->createView()
+			'form' => $form->createView(), 'ordres' => $ordres, 'objets' => $objets
 		));
     }   
 	
