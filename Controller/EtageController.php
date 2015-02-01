@@ -209,28 +209,16 @@ class EtageController extends Controller
        $em = $this->getDoctrine()->getManager();
 
 		$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneByCode($code);
+		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findByIdEtage($etage->getId());
+		$objets = $em->getRepository('KEMuseumBundle:Objet')->findAll($code);
 
 		if (null === $etage) {
 			throw new NotFoundHttpException("L'étage de numéro ".$code." n'existe pas.");
 		}
 
-		
-		$form = $this->get('form.factory')->createBuilder('form', $etage)
-			->add('code','text')
-			->add('longueur','text')
-			->add('largeur','text')
-			->add('hauteur','text')
-			->add('save','submit')
-			->getForm()
-			;
-
-		if ($form->handleRequest($request)->isValid()) {
-			$em->flush();
-			return $this->redirect($this->generateUrl('home'));
-		}
 
 		return $this->render('KEMuseumBundle:Etage:consult.html.twig', array(
-			'form'   => $form->createView()
+			'etage' => $etage, 'ordres' => $ordres, 'objets' => $objets
 			));
     } 
 	

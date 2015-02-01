@@ -130,7 +130,7 @@ class ObjetController extends Controller
 		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findOneByIdObjet($objet->getId());
 		$ordre = $ordres[0];
 		$etages = $em->getRepository('KEMuseumBundle:Etage')->findOneById($ordre->getIdEtage());
-		$etage = $etages[0};
+		$etage = $etages[0];
 		
 		if (null === $objet) {
 			throw new NotFoundHttpException("L'objet de code ".$code." n'existe pas.");

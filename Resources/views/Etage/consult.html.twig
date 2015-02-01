@@ -9,74 +9,86 @@
 {% block body %}
         <h1>Consultation d'un étage</h1>
         
-        <div class="well">
-			{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-
-			{# Les erreurs générales du formulaire. #}
-			{{ form_errors(form) }}
-	
-			<div class="form-group">
-				{# Génération du label. #}
-				{{ form_label(form.code, "Code", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-	
-				{# Affichage des erreurs pour ce champ précis. #}
-				{{ form_errors(form.code) }}
-
-				<div class="col-sm-4">
-					{# Génération de l'input. #}
-					{{ form_widget(form.code, {'attr': {'class': 'form-control'}}) }}
-				</div>
-			</div>
-	
-			<div class="form-group">
-				{# Génération du label. #}
-				{{ form_label(form.longueur, "Longueur", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-	
-				{# Affichage des erreurs pour ce champ précis. #}
-				{{ form_errors(form.longueur) }}
-
-				<div class="col-sm-4">
-					{# Génération de l'input. #}
-					{{ form_widget(form.longueur, {'attr': {'class': 'form-control'}}) }}
-				</div>
-			</div>
+        <div class="table-responsive">
 			
-			<div class="form-group">
-				{# Génération du label. #}
-				{{ form_label(form.largeur, "Largeur", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-	
-				{# Affichage des erreurs pour ce champ précis. #}
-				{{ form_errors(form.largeur) }}
-
-				<div class="col-sm-4">
-					{# Génération de l'input. #}
-					{{ form_widget(form.largeur, {'attr': {'class': 'form-control'}}) }}
-				</div>
+			<h2>
+				Etat : 
+				{% if etage.placeDisponible == etage.longueur %}
+					<font color="green"> Vide</font>
+				{% elseif etage.placeDisponible > 0%}
+					<font color="blue"> Disponible</font>
+				{% else %}
+					<font color="red"> Plein</font>
+				{% endif %}
+			</h2>
+			<h3>Caractéristique de l'étage : </h3>
+			<div class="well">
+			<table class="table">
+				<tbody>
+					<tr>
+						<td> <b>Code</b> </td>
+						<td> {{etage.code}} </td>
+					</tr>
+					<tr>
+						<td> <b>Longueur </b></td>
+						<td> {{etage.longueur}} </td>
+					</tr>
+					<tr>
+						<td> <b>Largeur </b></td>
+						<td> {{etage.largeur}} </td>
+					</tr>
+					<tr>
+						<td> <b>Hauteur </b></td>
+						<td> {{etage.hauteur}} </td>
+					</tr>
+					<tr>
+						<td> <b>Place disponible </b></td>
+						<td> {{etage.placeDisponible}} </td>
+					</tr>
+				</tbody>
+			</table>
 			</div>
-			
-			<div class="form-group">
-				{# Génération du label. #}
-				{{ form_label(form.hauteur, "Hauteur", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-	
-				{# Affichage des erreurs pour ce champ précis. #}
-				{{ form_errors(form.hauteur) }}
-
-				<div class="col-sm-4">
-					{# Génération de l'input. #}
-					{{ form_widget(form.hauteur, {'attr': {'class': 'form-control'}}) }}
-				</div>
+		</div>
+		
+		<div class="table-responsive">
+			<h3>Liste des Objets liés : </h3>
+			<div class="well">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Code objet</th>
+						<th>Nom</th>
+						<th>Longueur</th>
+						<th>Ordre</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for ordre in ordres %}
+						{% for objet in objets %}
+							{% if objet.id == ordre.idObjet %}
+								<tr>
+									<td>{{objet.code}}</td>
+									<td>{{objet.nom}}</td>
+									<td>{{objet.longueur}}</td>
+									<td>{{ordre.ordre}}</td>
+									<td>
+										<a href="#" class="btn btn-default">
+											<i class="glyphicon glyphicon-chevron-up"></i>
+											Modifier ordre
+										</a>
+										<a href="#" class="btn btn-default">
+											<i class="glyphicon glyphicon-chevron-down"></i>
+											Modifier ordre
+										</a>
+									</td>
+								</tr>
+							{% endif %}
+						{% endfor %}
+					{% endfor %}
+				</tbody>
+			</table>
 			</div>
-			
-			<a href="{{ path('home') }}" class="btn btn-default">
-				<i class="glyphicon glyphicon-chevron-left"></i>
-				Retour à l'accueil
-			</a>
-			{{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
-
-			{{ form_rest(form) }}
-  
-			{# Fermeture de la balise <form> du formulaire HTML #}
-			{{ form_end(form) }}
 		</div>
     </body>
 {% endblock %}
