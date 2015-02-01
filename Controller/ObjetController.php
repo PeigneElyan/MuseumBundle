@@ -5,6 +5,7 @@
 namespace KE\MuseumBundle\Controller;
 
 use KE\MuseumBundle\Entity\Objet;
+use KE\MuseumBundle\Entity\Ordre;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +19,7 @@ class ObjetController extends Controller
     {
 		
 		$objet = new Objet();
+		$ordre = new Ordre();
 
 		$form = $this->get('form.factory')->createBuilder('form', $objet)
 			->add('code','text')
@@ -30,10 +32,13 @@ class ObjetController extends Controller
 			;
 			
 		$form->handleRequest($request);
-			
+		
 		if ($form->isValid()) {
 			$em = $this->getDoctrine()->getManager();				
 			$em->persist($objet);
+			$em->flush();
+			$ordre->setIdObjet($objet->getId());
+			$em->persist($ordre);
 			$em->flush();
 			
 			return $this->redirect($this->generateUrl('home'));
@@ -174,14 +179,13 @@ class ObjetController extends Controller
 
 		$objet = $em->getRepository('KEMuseumBundle:Objet')->findOneByCode($code);
 		$etages = $em->getRepository('KEMuseumBundle:Etage')->findAll();
-		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findAll();
 
 		if (null === $objet) {
 			throw new NotFoundHttpException("L'objet de code ".$code." n'existe pas.");
 		}
 
 		return $this->render('KEMuseumBundle:Objet:place.html.twig', array(
-			'etages' => $etages , 'ordres' => $ordres, 'objet' => $objet
+			'etages' => $etages , 'objet' => $objet
 			));
     } 
 	
