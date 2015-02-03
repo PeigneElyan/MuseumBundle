@@ -14,8 +14,12 @@
   <hr>
   
 	<h3>GENERAL</h3>
+	{% set space = 0 %}
+	{% for etage in etages %}
+		{% set space = space + etage.placeDisponible %}
+	{% endfor %}
 	<p>
-        Il reste 480 mm d'espace à utiliser sur les étagères.
+        Il reste <font color="blue"><b>{{ space }}</b></font> mm d'espace à utiliser sur les étagères.
 		<br>La taille totale des objets à placer est de 620 mm.
     </p>
 	<h3>ETAGERES</h3>

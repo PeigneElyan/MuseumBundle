@@ -42,8 +42,12 @@ class MainController extends Controller
 
     public function indexAction()
     {
-        $content = $this->get('templating')->render('KEMuseumBundle:Main:index.html.twig');
-		return new Response($content);
+		$em = $this->getDoctrine()->getManager();
+		$etages = $em->getRepository('KEMuseumBundle:Etage')->findAll();
+       
+	   return $this->render('KEMuseumBundle:Main:index.html.twig', array(
+			'etages' => $etages
+		));
     }    
 }
 	?>
