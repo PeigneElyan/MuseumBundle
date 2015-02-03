@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityRepository;
 class OrdreRepository extends EntityRepository
 {
 
-	public function getNb($idEtage) {
+	public function getNbForEtage($idEtage) {
  
         return $this->createQueryBuilder('o')
                     ->select('COUNT(o)')
