@@ -171,6 +171,34 @@ class EtageController extends Controller
 			'code' => $codeEtage)));
 	}
 	
+	public function retirerObjetAction($codeEtage, $codeObjet){
+	
+		$em = $this->getDoctrine()->getManager();
+		$objet = $em->getRepository('KEMuseumBundle:Objet')->findOneByCode($codeObjet);
+		$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneByCode($codeEtage);
+		$ordre = $em->getRepository('KEMuseumBundle:Ordre')->findOneByIdObjet($objet->getId());
+		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findByIdEtage($etage->getId());
+		
+		foreach ($ordres as &$or) {
+			if($or->getOrdre() > $ordre->getOrdre() ){
+				$or->setOrdre($or->getOrdre() - 1);
+			}
+		}
+		
+		$etage->setPlaceDisponible($etage->getPlaceDisponible() + $objet->getLongueur());
+	
+		$ordre->setIdEtage(null);
+		$ordre->setOrdre(null);
+		
+		$em->persist($ordre);
+		$em->persist($etage);
+		$em->persist($ordres);
+		$em->flush();
+	
+		return $this->redirect($this->generateUrl('etage_consult', array(
+			'code' => $codeEtage)));
+	}
+	
 	public function indexConsultAction(Request $request)
     {
 		$em = $this->getDoctrine()->getManager();
