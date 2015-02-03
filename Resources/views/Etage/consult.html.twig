@@ -82,6 +82,11 @@
 											Modifier ordre
 										</a>
 									</td>
+									<td>
+										<a href="{{ path('etage_retirer_objet', {'codeEtage': etage.code, 'codeObjet': objet.code}) }}" class="btn btn-default">
+											Retirer cette Objet
+										</a>
+									</td>
 								</tr>
 							{% endif %}
 						{% endfor %}

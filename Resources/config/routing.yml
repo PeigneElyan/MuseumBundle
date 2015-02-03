@@ -62,6 +62,10 @@ etage_delete:
     path:      /etage/delete/{code}
     defaults:  { _controller: KEMuseumBundle:Etage:delete }
 
+etage_retirer_objet:
+    path:      /etage/retirer_objet/{codeEtage}/{codeObjet}
+    defaults:  { _controller: KEMuseumBundle:Etage:retirerObjet }
+
 etage_index_consult:
     path:      /etage/consult/index
     defaults:  { _controller: KEMuseumBundle:Etage:indexConsult }
