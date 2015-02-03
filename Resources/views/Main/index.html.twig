@@ -15,8 +15,18 @@
   
 	<h3>GENERAL</h3>
 	{% set space = 0 %}
+	{% set nbEtagePlein = 0 %}
+	{% set nbEtageUse = 0 %}
+	{% set nbEtageVide = 0 %}
 	{% for etage in etages %}
 		{% set space = space + etage.placeDisponible %}
+		{% if etage.placeDisponible == 0 %}
+			{% set nbEtagePlein = nbEtagePlein + 1 %}
+		{% elseif etage.longueur == etage.placeDisponible %}
+			{% set nbEtagePlein = nbEtageVide + 1 %}
+		{% else %}
+			{% set nbEtageUse = nbEtageUse + 1 %}
+		{% endif %}
 	{% endfor %}
 	<p>
         Il reste <font color="blue"><b>{{ space }}</b></font> mm d'espace à utiliser sur les étagères.
@@ -25,9 +35,9 @@
 	<h3>ETAGERES</h3>
 	<p>
         Il y a actuellement :
-			<br>- 2 étagères pleines.
-			<br>- 4 étagères utilisées mais non-pleines.
-			<br>- 1 étagère vide.
+			<br>- <font color="red"><b>{{ nbEtagePlein }}</b></font> étagères pleines.
+			<br>- <font color="blue"><b>{{ nbEtageUse }}</b></font> étagères utilisées mais non-pleines.
+			<br>- <font color="green"><b>{{ nbEtageVide }}</b></font> étagère vide.
     </p>
 	<h3>OBJETS</h3>
 	<p>
