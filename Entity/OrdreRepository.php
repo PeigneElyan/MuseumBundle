@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class OrdreRepository extends EntityRepository
 {
+
+	public function getNb($idEtage) {
+ 
+        return $this->createQueryBuilder('o')
+                    ->select('COUNT(o)')
+					->where('o.idEtage = :idEtage')
+					->setParameter('idEtage',$idEtage)
+					->getQuery()
+                    ->getSingleScalarResult();
+ 
+    }
+
 }

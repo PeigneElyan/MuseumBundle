@@ -155,13 +155,8 @@ class EtageController extends Controller
 		$ordre->setIdEtage($etage->getId());
 		$etage->setPlaceDisponible($etage->getPlaceDisponible() - $objet->getLongueur());
 		
-		$rsm = new ResultSetMapping($em);
-		// build rsm here
-
-		$query = $em->createNativeQuery('SELECT COUNT(*) FROM Ordre WHERE id_etage = ?', $rsm);
-		$query->setParameter(1, $etage->getId());
-
-		$count = $query->getResult();
+		$count = $em->getRepository('KEMuseumBundle:Ordre')->getNb($etage->getId());
+		
 		if($count == null){
 			$count=0;
 		}
@@ -172,7 +167,6 @@ class EtageController extends Controller
 		$em->persist($etage);
 		$em->flush();
 	
-		//return new Response("Count = ".$count);
 		return $this->redirect($this->generateUrl('etage_consult', array(
 			'code' => $codeEtage)));
 	}
