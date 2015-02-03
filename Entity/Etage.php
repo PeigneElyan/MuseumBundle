@@ -38,9 +38,9 @@ class Etage
     /**
      * @var integer
      *
-     * @ORM\Column(name="largeur", type="integer")
+     * @ORM\Column(name="profondeur", type="integer")
      */
-    private $largeur;
+    private $profondeur;
 
     /**
      * @var integer
@@ -123,26 +123,26 @@ class Etage
     }
 
     /**
-     * Set largeur
+     * Set profondeur
      *
-     * @param integer $largeur
+     * @param integer $profondeur
      * @return Etage
      */
-    public function setLargeur($largeur)
+    public function setProfondeur($profondeur)
     {
-        $this->largeur = $largeur;
+        $this->profondeur = $profondeur;
     
         return $this;
     }
 
     /**
-     * Get largeur
+     * Get profondeur
      *
      * @return integer 
      */
-    public function getLargeur()
+    public function getProfondeur()
     {
-        return $this->largeur;
+        return $this->profondeur;
     }
 
     /**

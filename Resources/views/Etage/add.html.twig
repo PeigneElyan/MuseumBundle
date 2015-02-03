@@ -44,14 +44,14 @@
 			
 			<div class="form-group">
 				{# Génération du label. #}
-				{{ form_label(form.largeur, "Largeur", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+				{{ form_label(form.profondeur, "Profondeur", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 	
 				{# Affichage des erreurs pour ce champ précis. #}
-				{{ form_errors(form.largeur) }}
+				{{ form_errors(form.profondeur) }}
 
 				<div class="col-sm-4">
 					{# Génération de l'input. #}
-					{{ form_widget(form.largeur, {'attr': {'class': 'form-control'}}) }}
+					{{ form_widget(form.profondeur, {'attr': {'class': 'form-control'}}) }}
 				</div>
 			</div>
 			

@@ -22,7 +22,7 @@ class EtageController extends Controller
 		$form = $this->get('form.factory')->createBuilder('form', $etage)
 			->add('code','text')
 			->add('longueur','text')
-			->add('largeur','text')
+			->add('profondeur','text')
 			->add('hauteur','text')
 			->add('save','submit')
 			->getForm()
@@ -78,7 +78,7 @@ class EtageController extends Controller
 		$form = $this->get('form.factory')->createBuilder('form', $etage)
 			->add('code','text')
 			->add('longueur','text')
-			->add('largeur','text')
+			->add('profondeur','text')
 			->add('hauteur','text')
 			->add('save','submit')
 			->getForm()
@@ -128,7 +128,7 @@ class EtageController extends Controller
 		$form = $this->get('form.factory')->createBuilder('form', $etage)
 			->add('code','text')
 			->add('longueur','text')
-			->add('largeur','text')
+			->add('profondeur','text')
 			->add('hauteur','text')
 			->add('save','submit')
 			->getForm()
@@ -155,7 +155,7 @@ class EtageController extends Controller
 		$ordre->setIdEtage($etage->getId());
 		$etage->setPlaceDisponible($etage->getPlaceDisponible() - $objet->getLongueur());
 		
-		$count = $em->getRepository('KEMuseumBundle:Ordre')->getNb($etage->getId());
+		$count = $em->getRepository('KEMuseumBundle:Ordre')->getNbForEtage($etage->getId());
 		
 		if($count == null){
 			$count=0;
