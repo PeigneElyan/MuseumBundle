@@ -125,12 +125,9 @@ class ObjetController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-		$objets = $em->getRepository('KEMuseumBundle:Objet')->findOneByCode($code);
-		$objet = $objets[0];
-		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findOneByIdObjet($objet->getId());
-		$ordre = $ordres[0];
-		$etages = $em->getRepository('KEMuseumBundle:Etage')->findOneById($ordre->getIdEtage());
-		$etage = $etages[0];
+		$objet = $em->getRepository('KEMuseumBundle:Objet')->findOneByCode($code);
+		$ordre = $em->getRepository('KEMuseumBundle:Ordre')->findOneByIdObjet($objet->getId());
+		$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneById($ordre->getIdEtage());
 		
 		if (null === $objet) {
 			throw new NotFoundHttpException("L'objet de code ".$code." n'existe pas.");

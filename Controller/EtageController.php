@@ -148,13 +148,9 @@ class EtageController extends Controller
 	public function placementObjetAction($codeEtage, $codeObjet){
 	
 		$em = $this->getDoctrine()->getManager();
-		$objets = $em->getRepository('KEMuseumBundle:Objet')->findByCode($codeObjet);
-		$etages = $em->getRepository('KEMuseumBundle:Etage')->findByCode($codeEtage);
-		$objet = $objets[0];
-		$etage = $etages[0];
-		
-		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findByIdObjet($objet->getId());
-		$ordre = $ordres[0];
+		$objet = $em->getRepository('KEMuseumBundle:Objet')->findOneByCode($codeObjet);
+		$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneByCode($codeEtage);
+		$ordre = $em->getRepository('KEMuseumBundle:Ordre')->findOneByIdObjet($objet->getId());
 		
 		$ordre->setIdEtage($etage->getId());
 		$etage->setPlaceDisponible($etage->getPlaceDisponible() - $objet->getLongueur());
