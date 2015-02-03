@@ -121,4 +121,23 @@ class Ordre
     {
         return $this->ordre;
     }
+	
+	/**
+     * Get ordre
+     *
+     * @return integer 
+     */
+    public function incrementerOrdre()
+    {
+        $ordre = $ordre + 1;
+    }
+	/**
+     * Get ordre
+     *
+     * @return integer 
+     */
+    public function decrementerOrdre()
+    {
+		$ordre = $ordre - 1;
+    }
 }

@@ -182,6 +182,7 @@ class EtageController extends Controller
 		foreach ($ordres as &$or) {
 			if($or->getOrdre() > $ordre->getOrdre() ){
 				$or->setOrdre($or->getOrdre() - 1);
+				$em->persist($or);
 			}
 		}
 		
@@ -192,7 +193,7 @@ class EtageController extends Controller
 		
 		$em->persist($ordre);
 		$em->persist($etage);
-		$em->persist($ordres);
+		
 		$em->flush();
 	
 		return $this->redirect($this->generateUrl('etage_consult', array(

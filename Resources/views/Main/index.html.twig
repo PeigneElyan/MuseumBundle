@@ -23,7 +23,7 @@
 		{% if etage.placeDisponible == 0 %}
 			{% set nbEtagePlein = nbEtagePlein + 1 %}
 		{% elseif etage.longueur == etage.placeDisponible %}
-			{% set nbEtagePlein = nbEtageVide + 1 %}
+			{% set nbEtageVide = nbEtageVide + 1 %}
 		{% else %}
 			{% set nbEtageUse = nbEtageUse + 1 %}
 		{% endif %}
