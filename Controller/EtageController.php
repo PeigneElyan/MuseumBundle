@@ -162,6 +162,7 @@ class EtageController extends Controller
 		}
 		$count+=1;
 		$ordre->setOrdre($count);
+		$ordre->setPourcent(($objet->getLongueur()*100)/$etage->getLongueur());
 		
 		$em->persist($ordre);
 		$em->persist($etage);
@@ -189,6 +190,7 @@ class EtageController extends Controller
 	
 		$ordre->setIdEtage(null);
 		$ordre->setOrdre(null);
+		$ordre->setPourcent(null);
 		
 		$em->persist($ordre);
 		$em->persist($etage);
@@ -233,7 +235,6 @@ class EtageController extends Controller
 		if (null === $etage) {
 			throw new NotFoundHttpException("L'étage de numéro ".$code." n'existe pas.");
 		}
-
 
 		return $this->render('KEMuseumBundle:Etage:consult.html.twig', array(
 			'etage' => $etage, 'ordres' => $ordres, 'objets' => $objets

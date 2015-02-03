@@ -95,5 +95,17 @@
 			</table>
 			</div>
 		</div>
+		<div class="table-responsive">
+			<h3>Modélisation de l'étage : </h3>
+			<div class="well">
+					{% for ordre in ordres %}
+						{% for objet in objets %}
+							{% if objet.id == ordre.idObjet %}
+								<div style="width:{{ordre.pourcent}}%;height:100px;background:#069;">{{objet.nom}}</div>
+							{% endif %}
+						{% endfor %}
+					{% endfor %}
+			</div>
+		</div>	
     </body>
 {% endblock %}

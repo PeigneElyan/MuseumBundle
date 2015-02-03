@@ -41,7 +41,13 @@ class Ordre
      * @ORM\Column(name="ordre", type="integer", nullable = true)
      */
     private $ordre;
-
+	
+	/**
+     * @var float
+     *
+     * @ORM\Column(name="pourcent", type="integer", nullable = true)
+     */
+    private $pourcent;
 
     /**
      * Get id
@@ -120,5 +126,28 @@ class Ordre
     public function getOrdre()
     {
         return $this->ordre;
+    }
+	
+	/**
+     * Set pourcent
+     *
+     * @param float $pourcent
+     * @return Pourcent
+     */
+    public function setPourcent($pourcent)
+    {
+        $this->pourcent = $pourcent;
+    
+        return $this;
+    }
+
+    /**
+     * Get pourcent
+     *
+     * @return float 
+     */
+    public function getPourcent()
+    {
+        return $this->pourcent;
     }
 }
