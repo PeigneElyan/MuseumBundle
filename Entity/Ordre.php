@@ -31,14 +31,14 @@ class Ordre
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_etage", type="integer")
+     * @ORM\Column(name="id_etage", type="integer", nullable = true)
      */
     private $idEtage;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="ordre", type="integer")
+     * @ORM\Column(name="ordre", type="integer", nullable = true)
      */
     private $ordre;
 
