@@ -180,9 +180,10 @@ class EtageController extends Controller
 		$ordre = $em->getRepository('KEMuseumBundle:Ordre')->findOneByIdObjet($objet->getId());
 		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findByIdEtage($etage->getId());
 		
-		foreach ($ordres as &$or) {
+		foreach ($ordres as $or) {
 			if($or->getOrdre() > $ordre->getOrdre() ){
 				$or->setOrdre($or->getOrdre() - 1);
+				$em->persist($or);
 			}
 		}
 		
@@ -194,7 +195,6 @@ class EtageController extends Controller
 		
 		$em->persist($ordre);
 		$em->persist($etage);
-		$em->persist($ordres);
 		$em->flush();
 	
 		return $this->redirect($this->generateUrl('etage_consult', array(
@@ -229,7 +229,7 @@ class EtageController extends Controller
        $em = $this->getDoctrine()->getManager();
 
 		$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneByCode($code);
-		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findByIdEtage($etage->getId());
+		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findByIdEtage($etage->getId(),array('ordre'=>'ASC'));
 		$objets = $em->getRepository('KEMuseumBundle:Objet')->findAll($code);
 
 		if (null === $etage) {
@@ -241,5 +241,46 @@ class EtageController extends Controller
 			));
     } 
 	
+	public function ordreUpAction($idEtage, $idObjet){
+	
+		$em = $this->getDoctrine()->getManager();
+		$objet = $em->getRepository('KEMuseumBundle:Objet')->findOneById($idObjet);
+		$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneById($idEtage);
+		$ordre = $em->getRepository('KEMuseumBundle:Ordre')->findOneByIdObjet($idObjet);
+		$ordreUp = $em->getRepository('KEMuseumBundle:Ordre')
+					->findOneBy(array('idEtage' => $idEtage,'ordre' => ($ordre->getOrdre())-1));
+	
+		$ordreUp->setOrdre($ordre->getOrdre());
+		$ordre->setOrdre(($ordre->getOrdre())-1);
+		
+		$em->persist($ordre);
+		$em->persist($ordreUp);
+		$em->flush();
+		
+		return $this->redirect($this->generateUrl('etage_consult', array(
+				'code' => $etage->getCode())));
 	}
-	?>
+		
+	public function ordreDownAction($idEtage, $idObjet){
+	
+		$em = $this->getDoctrine()->getManager();
+		$objet = $em->getRepository('KEMuseumBundle:Objet')->findOneById($idObjet);
+		$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneById($idEtage);
+		$ordre = $em->getRepository('KEMuseumBundle:Ordre')->findOneByIdObjet($idObjet);
+		$ordreUp = $em->getRepository('KEMuseumBundle:Ordre')
+					->findOneBy(array('idEtage' => $idEtage,'ordre' => ($ordre->getOrdre())+1));
+	
+		$ordreUp->setOrdre($ordre->getOrdre());
+		$ordre->setOrdre(($ordre->getOrdre())+1);
+		
+		$em->persist($ordre);
+		$em->persist($ordreUp);
+		$em->flush();
+		
+		return $this->redirect($this->generateUrl('etage_consult', array(
+				'code' => $etage->getCode())));
+	}	
+		
+		
+}
+?>

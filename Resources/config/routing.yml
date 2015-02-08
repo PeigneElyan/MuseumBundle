@@ -73,3 +73,11 @@ etage_index_consult:
 etage_consult:
     path:      /etage/consult/{code}
     defaults:  { _controller: KEMuseumBundle:Etage:consult }
+
+etage_ordre_up:
+    path:      /etage/ordreUp/{idEtage}/{idObjet}
+    defaults:  { _controller: KEMuseumBundle:Etage:ordreUp }
+
+etage_ordre_down:
+    path:      /etage/ordreDown/{idEtage}/{idObjet}
+    defaults:  { _controller: KEMuseumBundle:Etage:ordreDown }
