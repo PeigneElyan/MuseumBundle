@@ -13,7 +13,7 @@ use Doctrine\ORM\Query\ResultSetMapping;
 
 class EtageController extends Controller
 {
-		
+
 	public function addAction(Request $request)
     {
 		
@@ -223,6 +223,16 @@ class EtageController extends Controller
 		));
     }   
 	
+	public function cmp($a, $b)
+    {
+        $al = $a->getOrdre();
+        $bl = $b->getOrdre();
+        if ($al == $bl) {
+            return 0;
+        }
+        return ($al > $bl) ? +1 : -1;
+    }
+	
 	public function consultAction($code, Request $request)
     {
        $em = $this->getDoctrine()->getManager();
@@ -235,6 +245,7 @@ class EtageController extends Controller
 			throw new NotFoundHttpException("L'étage de numéro ".$code." n'existe pas.");
 		}
 
+		usort($ordres, "cmp");
 
 		return $this->render('KEMuseumBundle:Etage:consult.html.twig', array(
 			'etage' => $etage, 'ordres' => $ordres, 'objets' => $objets

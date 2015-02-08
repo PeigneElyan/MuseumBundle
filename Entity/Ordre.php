@@ -123,21 +123,34 @@ class Ordre
     }
 	
 	/**
-     * Get ordre
+     * Incrementer ordre
      *
-     * @return integer 
      */
     public function incrementerOrdre()
     {
         $ordre = $ordre + 1;
     }
 	/**
-     * Get ordre
+     * Decrementer ordre
      *
-     * @return integer 
      */
     public function decrementerOrdre()
     {
 		$ordre = $ordre - 1;
     }
+	
+	/**
+     * cmp obj
+     *
+     */
+	 static function cmp_obj($a, $b)
+    {
+        $al = $a->getOrdre();
+        $bl = $b->getOrdre();
+        if ($al == $bl) {
+            return 0;
+        }
+        return ($al > $bl) ? +1 : -1;
+    }
+	
 }
