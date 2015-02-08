@@ -57,7 +57,7 @@
 				<tr>
 					<td>{{etage.code}}</td>
 					<td>
-						{% if etage.placeDisponible > objet.longueur %}
+						{% if etage.placeDisponible >= objet.longueur %}
 							<font color="green"> OK.</font>
 						{% else %}
 							<font color="red"> Pas assez de place.</font>

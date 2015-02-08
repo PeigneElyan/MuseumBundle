@@ -35,7 +35,7 @@ $(document).ready(function() {
 					<font color="red"> Plein</font>
 				{% endif %}
 			</h2>
-			<h3>Caractéristique de l'étage : </h3>
+			<h3>Caractéristiques de l'étage : </h3>
 			<div class="well">
 			<table class="table">
 				<tbody>
@@ -87,18 +87,22 @@ $(document).ready(function() {
 									<td>{{objet.longueur}}</td>
 									<td>{{ordre.ordre}}</td>
 									<td>
-										<a href="#" class="btn btn-default">
+										{% if ordre.ordre > 1 %}
+										<a href="{{ path('etage_ordre_up', {'idEtage': etage.id, 'idObjet': objet.id}) }}" class="btn btn-default">
 											<i class="glyphicon glyphicon-chevron-up"></i>
 											Modifier ordre
 										</a>
-										<a href="#" class="btn btn-default">
+										{% endif %}
+										{% if ordre.ordre != ordres|length %}
+										<a href="{{ path('etage_ordre_down', {'idEtage': etage.id, 'idObjet': objet.id}) }}" class="btn btn-default">
 											<i class="glyphicon glyphicon-chevron-down"></i>
 											Modifier ordre
 										</a>
+										{% endif %}
 									</td>
 									<td>
 										<a href="{{ path('etage_retirer_objet', {'codeEtage': etage.code, 'codeObjet': objet.code}) }}" class="btn btn-default">
-											Retirer cette Objet
+											Retirer cet objet
 										</a>
 									</td>
 								</tr>
@@ -109,5 +113,25 @@ $(document).ready(function() {
 			</table>
 			</div>
 		</div>
+		<div class="table-responsive">
+			<h3>Modélisation de l'étage : </h3></br>
+					{% for ordre in ordres %}
+						{% for objet in objets %}
+							{% if objet.id == ordre.idObjet %}
+								<div style="float:left;
+								border-width:2px;
+								border-style:solid;
+								width:{{ordre.pourcent}}%;
+								height:100px;
+								background:#E8C782;
+								vertical-align:middle;
+								text-align:center;
+								padding-top:40px;
+								"><strong>{{objet.nom}}</strong></div>
+							{% endif %}
+						{% endfor %}
+					{% endfor %}
+					<div style="float:right;width:100%;height:10px;background:#582900;"></div>
+		</div>	
     </body>
 {% endblock %}
