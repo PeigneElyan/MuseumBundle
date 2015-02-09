@@ -159,7 +159,7 @@ class Ordre
         return ($al > $bl) ? +1 : -1;
     }
 	
-     * Set pourcent
+    /* Set pourcent
      *
      * @param float $pourcent
      * @return Pourcent

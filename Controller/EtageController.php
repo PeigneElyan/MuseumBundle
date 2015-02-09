@@ -120,6 +120,8 @@ class EtageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
 		$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneByCode($code);
+		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findByIdEtage($etage->getId());
+
 
 		if (null === $code) {
 			throw new NotFoundHttpException("L'étage de numéro ".$code." n'existe pas.");
@@ -136,6 +138,12 @@ class EtageController extends Controller
 			;
 
 		if ($form->handleRequest($request)->isValid()) {
+			foreach ($ordres as $or) {
+				$or->setOrdre(null);
+				$or->setPourcent(null);
+				$or->setIdEtage(null);
+				$em->persist($or);
+			}
 			$em->remove($etage);
 			$em->flush();
 			return $this->redirect($this->generateUrl('home'));
@@ -225,15 +233,6 @@ class EtageController extends Controller
 		));
     }   
 	
-	public function cmp($a, $b)
-    {
-        $al = $a->getOrdre();
-        $bl = $b->getOrdre();
-        if ($al == $bl) {
-            return 0;
-        }
-        return ($al > $bl) ? +1 : -1;
-    }
 	
 	public function consultAction($code, Request $request)
     {
@@ -278,14 +277,14 @@ class EtageController extends Controller
 		$objet = $em->getRepository('KEMuseumBundle:Objet')->findOneById($idObjet);
 		$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneById($idEtage);
 		$ordre = $em->getRepository('KEMuseumBundle:Ordre')->findOneByIdObjet($idObjet);
-		$ordreUp = $em->getRepository('KEMuseumBundle:Ordre')
+		$ordreDown = $em->getRepository('KEMuseumBundle:Ordre')
 					->findOneBy(array('idEtage' => $idEtage,'ordre' => ($ordre->getOrdre())+1));
 	
-		$ordreUp->setOrdre($ordre->getOrdre());
+		$ordreDown->setOrdre($ordre->getOrdre());
 		$ordre->setOrdre(($ordre->getOrdre())+1);
 		
 		$em->persist($ordre);
-		$em->persist($ordreUp);
+		$em->persist($ordreDown);
 		$em->flush();
 		
 		return $this->redirect($this->generateUrl('etage_consult', array(
