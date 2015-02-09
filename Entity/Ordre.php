@@ -159,7 +159,11 @@ class Ordre
         return ($al > $bl) ? +1 : -1;
     }
 	
+<<<<<<< HEAD
      /* Set pourcent
+=======
+    /* Set pourcent
+>>>>>>> 319bdf4e051c27d1a683040cc614f42bb4e5691e
      *
      * @param float $pourcent
      * @return Pourcent
