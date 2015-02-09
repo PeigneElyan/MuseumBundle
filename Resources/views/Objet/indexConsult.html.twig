@@ -1,0 +1,77 @@
+{# src/KE/MuseumBundle/Resources/views/objet/indexConsult.html.twig #}
+
+{% extends "::base.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+        <h1>Consultation d'un objet</h1>
+        
+		<h3>Recherche d'un Objet</h3>
+        <div class="well">
+			{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+			{# Les erreurs générales du formulaire. #}
+			{{ form_errors(form) }}
+	
+			<div class="form-group">
+				{# Génération du label. #}
+				{{ form_label(form.code, "Code", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+	
+				{# Affichage des erreurs pour ce champ précis. #}
+				{{ form_errors(form.code) }}
+
+				<div class="col-sm-4">
+					{{ form_widget(form.code, {'attr': {'class': 'form-control'}}) }}
+				</div>
+			</div>
+	
+			
+			<a href="{{ path('home') }}" class="btn btn-default">
+				<i class="glyphicon glyphicon-chevron-left"></i>
+				Retour à l'accueil
+			</a>
+			{{ form_widget(form.save, {'label': 'Consulter','attr': {'class': 'btn btn-primary'}}) }}
+
+			{{ form_rest(form) }}
+  
+			{# Fermeture de la balise <form> du formulaire HTML #}
+			{{ form_end(form) }}
+		</div>
+		<h3>Liste des Objets</h3>
+        <div class="well">
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Code Objet</th>
+							<th>Nom</th>
+							<th>Longueur</th>
+							<th>Profondeur</th>
+							<th>Hauteur</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					{% for objet in objets %}
+						<tr>
+							<td>{{objet.code}}</td>
+							<td>{{objet.nom}}</td>
+							<td>{{objet.longueur}}</td>
+							<td>{{objet.profondeur}}</td>
+							<td>{{objet.hauteur}}</td>
+							<td>
+								<a href="{{ path('objet_consult', {'code': objet.code}) }}" class="btn btn-default">
+									Consulter cet objet
+								</a>
+							</td>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+    </body>
+{% endblock %}

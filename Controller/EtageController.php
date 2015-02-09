@@ -233,7 +233,6 @@ class EtageController extends Controller
 		));
     }   
 	
-	
 	public function consultAction($code, Request $request)
     {
        $em = $this->getDoctrine()->getManager();

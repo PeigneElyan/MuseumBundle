@@ -38,6 +38,14 @@ objet_place:
     path:      /objet/place/{code}
     defaults:  { _controller: KEMuseumBundle:Objet:place }
 
+objet_index_consult:
+    path:      /objet/consult/index
+    defaults:  { _controller: KEMuseumBundle:Objet:indexConsult }
+
+objet_consult:
+    path:      /objet/consult/{code}
+    defaults:  { _controller: KEMuseumBundle:Objet:consult }
+
 etage_add:
     path:      /etage/add
     defaults:  { _controller: KEMuseumBundle:Etage:add }

@@ -1,0 +1,91 @@
+{# src/KE/MuseumBundle/Resources/views/Objet/consult.html.twig #}
+
+{% extends "::base.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+  <style>
+  #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+  #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+  #sortable li span { position: absolute; margin-left: -1.3em; }
+  </style>
+  <script type="text/javascript">
+$(document).ready(function() {
+    <span class="comment">// Initialise the table</span>
+    $("#table-1").tableDnD();
+});
+</script>
+
+        <h1>Consultation d'un objet</h1>
+        
+        <div class="table-responsive">
+			
+			<h2>
+				Etat : 
+				{% if ordre.idEtage == null %}
+					<font color="red"> Non placer</font>
+				{% else %}
+					<font color="green"> Placer</font>
+				{% endif %}
+			</h2>
+			<h3>
+				{% if ordre.idEtage == null %}
+					<a href="{{ path('etage_placement_objet', {'codeEtage': etage.code, 'codeObjet': objet.code}) }}" class="btn btn-default">
+								Placer cet objet
+							</a>	
+				{% else %}
+					Etage : <a href="{{ path('etage_consult', {'code': etage.code}) }}" class="btn btn-default">
+								{{etage.code}}
+							</a>					
+				{% endif %}
+			</h3>
+			<h3>Caractéristiques de l'objet : </h3>
+			<div class="well">
+			<table class="table">
+				<tbody>
+					<tr>
+						<td> <b>Code</b> </td>
+						<td> {{objet.code}} </td>
+					</tr>
+					<tr>
+						<td> <b>Nom </b></td>
+						<td> {{objet.nom}} </td>
+					</tr>
+					<tr>
+						<td> <b>Longueur </b></td>
+						<td> {{objet.longueur}} </td>
+					</tr>
+					<tr>
+						<td> <b>Profondeur </b></td>
+						<td> {{objet.profondeur}} </td>
+					</tr>
+					<tr>
+						<td> <b>Hauteur </b></td>
+						<td> {{objet.hauteur}} </td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+		
+		<div class="table-responsive">
+			<h3>Modélisation de l'objet : </h3></br>
+				<div style="float:left;
+					border-width:2px;
+					border-style:solid;
+					width:{{ordre.pourcent}}%;
+					height:100px;
+					background:#E8C782;
+					vertical-align:middle;
+					text-align:center;
+					padding-top:40px;
+					"><strong>{{objet.nom}}</strong></div>
+				<div style="float:right;width:100%;height:10px;background:#582900;"></div>
+		</div>	
+    </body>
+{% endblock %}
