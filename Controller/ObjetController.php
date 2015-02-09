@@ -192,6 +192,45 @@ class ObjetController extends Controller
 		));
     }   
 	
+	public function indexConsultAction(Request $request)
+    {
+		$em = $this->getDoctrine()->getManager();
+		$objets = $em->getRepository('KEMuseumBundle:Objet')->findAll();
+		
+        $form = $this->get('form.factory')->createBuilder('form')
+			->add('code','text')
+			->add('save','submit')
+			->getForm()
+			;
+			
+		$form->handleRequest($request);
+			
+		if ($form->isValid()) {
+			$code = $form->get('code')->getData();
+			return $this->redirect($this->generateUrl('objet_consult', array(
+			'code' => $code)));
+		}	
+		return $this->render('KEMuseumBundle:Objet:indexConsult.html.twig', array(
+			'form' => $form->createView(), 'objets' => $objets
+		));
+    }   
+	
+	public function consultAction($code, Request $request)
+    {
+       $em = $this->getDoctrine()->getManager();
+
+		$objet = $em->getRepository('KEMuseumBundle:Objet')->findOneByCode($code);
+		$ordre = $em->getRepository('KEMuseumBundle:Ordre')->findOneByIdObjet($objet->getId());
+		$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneById($ordre->getIdEtage());
+
+		if (null === $objet) {
+			throw new NotFoundHttpException("L'objet de numéro ".$code." n'existe pas.");
+		}
+
+		return $this->render('KEMuseumBundle:Objet:consult.html.twig', array(
+			'etage' => $etage, 'ordre' => $ordre, 'objet' => $objet
+			));
+    } 
 	
 	public function placeAction($code, Request $request)
     {
