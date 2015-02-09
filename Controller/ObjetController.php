@@ -192,6 +192,7 @@ class ObjetController extends Controller
 		));
     }   
 	
+	
 	public function placeAction($code, Request $request)
     {
        $em = $this->getDoctrine()->getManager();

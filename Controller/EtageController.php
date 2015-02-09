@@ -225,16 +225,6 @@ class EtageController extends Controller
 		));
     }   
 	
-	public function cmp($a, $b)
-    {
-        $al = $a->getOrdre();
-        $bl = $b->getOrdre();
-        if ($al == $bl) {
-            return 0;
-        }
-        return ($al > $bl) ? +1 : -1;
-    }
-	
 	public function consultAction($code, Request $request)
     {
        $em = $this->getDoctrine()->getManager();
