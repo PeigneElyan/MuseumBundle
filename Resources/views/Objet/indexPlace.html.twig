@@ -34,7 +34,7 @@
 				<i class="glyphicon glyphicon-chevron-left"></i>
 				Retour à l'accueil
 			</a>
-			{{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+			{{ form_widget(form.save, {'label': 'Placer','attr': {'class': 'btn btn-primary'}}) }}
 
 			{{ form_rest(form) }}
   
@@ -66,7 +66,7 @@
 											<td>
 												<a href="{{ path('objet_place', {'code': objet.code}) }}" class="btn btn-default">
 													<i class="glyphicon glyphicon-chevron-right"></i>
-													Placer cette Objet
+													Placer cet objet
 												</a>
 											</td>
 										</tr>

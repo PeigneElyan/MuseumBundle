@@ -90,7 +90,8 @@ class EtageController extends Controller
 		}
 
 		return $this->render('KEMuseumBundle:Etage:edit.html.twig', array(
-			'form'   => $form->createView()
+			'form'   => $form->createView(),
+			'etage'  => $etage
 			));
     } 
 

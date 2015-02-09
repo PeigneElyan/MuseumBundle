@@ -1,0 +1,80 @@
+{# app/Resources/views/base.html.twig #}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{% block title %}Régie de collection de Musée{% endblock %}</title>
+
+  {% block stylesheets %}
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  {% endblock %}
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>  
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+</head>
+
+<body>
+  <div class="container">
+    <div id="header">
+      <h1>Gestion de Musée</h1>
+    </div>
+
+		<nav class="navbar navbar-static-top" role="navigation">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-target=".navbar-invese-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <ul class="nav navbar-nav" style="border:1px solid #3399CC">
+                        <li><a href="{{ path('home') }}" style="border:1px solid #3399CC">Accueil</a></li>
+                        <li class="dropdown" style="border:1px solid #3399CC">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Objet
+                                <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a tabindex="-1" href="{{ path('objet_add') }}">Ajouter un objet</a></li>
+                                <li><a tabindex="-1" href="{{ path('objet_index_edit') }}">Editer un objet</a></li>
+                                <li><a tabindex="-1" href="{{ path('objet_index_delete') }}">Supprimer un objet</a></li>
+                                <li><a tabindex="-1" href="{{ path('objet_index_place') }}">Placer un objet</a></li>
+                            </ul>
+                        </li>
+						<li class="dropdown" style="border:1px solid #3399CC">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Etage
+                                <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a tabindex="-1" href="{{ path('etage_add') }}">Ajouter un étage</a></li>
+                                <li><a tabindex="-1" href="{{ path('etage_index_edit') }}">Editer un étage</a></li>
+                                <li><a tabindex="-1" href="{{ path('etage_index_delete') }}">Supprimer un étage</a></li>
+                                <li><a tabindex="-1" href="{{ path('etage_index_consult') }}">Consulter un étage</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+	
+	
+	
+    <div class="row">
+      <div id="content" >
+        {% block body %}
+        {% endblock %}
+      </div>
+    </div>
+	
+    <hr>
+
+    <footer>
+      <p>Projet Etudiant - LANVIN Elyan / CROUILLERE Kévin</p>
+    </footer>
+  </div>
+
+</body>
+</html>

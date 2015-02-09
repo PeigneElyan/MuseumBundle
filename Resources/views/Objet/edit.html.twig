@@ -49,8 +49,11 @@
 				{{ form_errors(form.longueur) }}
 
 				<div class="col-sm-4">
-					{# Génération de l'input. #}
-					{{ form_widget(form.longueur, {'attr': {'class': 'form-control'}}) }}
+					{% if dejaPlace == true %}
+						{{ form_widget(form.longueur, {'attr': {'class': 'form-control', 'disabled' : 'disabled'}}) }}
+					{% else %}
+						{{ form_widget(form.longueur, {'attr': {'class': 'form-control'}}) }}
+					{% endif %}
 				</div>
 			</div>
 			
@@ -62,8 +65,11 @@
 				{{ form_errors(form.profondeur) }}
 
 				<div class="col-sm-4">
-					{# Génération de l'input. #}
-					{{ form_widget(form.profondeur, {'attr': {'class': 'form-control'}}) }}
+					{% if dejaPlace == true %}
+						{{ form_widget(form.profondeur, {'attr': {'class': 'form-control', 'disabled' : 'disabled'}}) }}
+					{% else %}
+						{{ form_widget(form.profondeur, {'attr': {'class': 'form-control'}}) }}
+					{% endif %}
 				</div>
 			</div>
 			
@@ -75,16 +81,23 @@
 				{{ form_errors(form.hauteur) }}
 
 				<div class="col-sm-4">
-					{# Génération de l'input. #}
-					{{ form_widget(form.hauteur, {'attr': {'class': 'form-control'}}) }}
+					{% if dejaPlace == true %}
+						{{ form_widget(form.hauteur, {'attr': {'class': 'form-control', 'disabled' : 'disabled'}}) }}
+					{% else %}
+						{{ form_widget(form.hauteur, {'attr': {'class': 'form-control'}}) }}
+					{% endif %}
 				</div>
 			</div>
+			
+			{% if dejaPlace == true %}
+				<p><font color="red">L'objet est déjà placé, par conséquent vous ne pouvez pas modifier ses dimensions.</font></p>
+			{% endif %}
 			
 			<a href="{{ path('home') }}" class="btn btn-default">
 				<i class="glyphicon glyphicon-chevron-left"></i>
 				Retour à l'accueil
 			</a>
-			{{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+			{{ form_widget(form.save, {'label': 'Modifier','attr': {'class': 'btn btn-primary'}}) }}
 
 			{{ form_rest(form) }}
   
