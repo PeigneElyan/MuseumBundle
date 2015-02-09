@@ -13,7 +13,7 @@ use Doctrine\ORM\Query\ResultSetMapping;
 
 class EtageController extends Controller
 {
-		
+
 	public function addAction(Request $request)
     {
 		
@@ -224,6 +224,16 @@ class EtageController extends Controller
 			'form' => $form->createView(), 'etages' => $etages
 		));
     }   
+	
+	public function cmp($a, $b)
+    {
+        $al = $a->getOrdre();
+        $bl = $b->getOrdre();
+        if ($al == $bl) {
+            return 0;
+        }
+        return ($al > $bl) ? +1 : -1;
+    }
 	
 	public function consultAction($code, Request $request)
     {
