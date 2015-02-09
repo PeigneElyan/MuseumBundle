@@ -8,7 +8,6 @@
 
 {% block body %}
 
-  {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
   <h1>Accueil</h1>
 
   <hr>
@@ -23,27 +22,49 @@
 		{% if etage.placeDisponible == 0 %}
 			{% set nbEtagePlein = nbEtagePlein + 1 %}
 		{% elseif etage.longueur == etage.placeDisponible %}
-			{% set nbEtagePlein = nbEtageVide + 1 %}
+			{% set nbEtageVide = nbEtageVide + 1 %}
 		{% else %}
 			{% set nbEtageUse = nbEtageUse + 1 %}
 		{% endif %}
 	{% endfor %}
+	
+	
+	{% set longAPlacer = 0 %}
+	{% set objetsPlaces = 0 %}
+	{% set objetsNonPlaces = 0 %}
+	{% for ordre in ordres %}
+		{% if ordre.idEtage == null %}
+			{% set objetsNonPlaces = objetsNonPlaces + 1 %}
+			{% for objet in objets %}
+				{% if objet.id == ordre.idObjet %}
+					{% set longAPlacer = longAPlacer + objet.longueur %}
+				{% endif %}
+			{% endfor %}	
+		{% else %}
+			{% set objetsPlaces = objetsPlaces + 1 %}
+		{% endif %}
+	{% endfor %}
+	
 	<p>
-        Il reste <font color="blue"><b>{{ space }}</b></font> mm d'espace à utiliser sur les étagères.
-		<br>La taille totale des objets à placer est de 620 mm.
+        Il reste <font color="blue"><b>{{ space }}</b></font> mm d'espace en longueur à utiliser sur les étagères.
+		<br>La longueur totale des objets à placer est de <font color="blue"><b>{{ longAPlacer }}</b></font> mm.
     </p>
 	<h3>ETAGERES</h3>
 	<p>
         Il y a actuellement :
-			<br>- <font color="red"><b>{{ nbEtagePlein }}</b> étagères pleines.</font>
-			<br>- <font color="blue"><b>{{ nbEtageUse }}</b> étagères utilisées mais non-pleines.</font>
-			<br>- <font color="green"><b>{{ nbEtageVide }}</b> étagère vide.</font>
+		<ul> 
+			<li><font color="red"><b>{{ nbEtagePlein }}</b> étagères pleines.</font></li> 
+			<li><font color="blue"><b>{{ nbEtageUse }}</b> étagères utilisées mais non-pleines.</font></li> 
+			<li><font color="green"><b>{{ nbEtageVide }}</b> étagère vide.</font></li> 
+		</ul>
     </p>
 	<h3>OBJETS</h3>
 	<p>
         Il y a actuellement :
-			<br>- 5 objets placés.
-			<br>- 7 objets en attente de placement.
+		<ul> 
+			<li> <font color="blue"><b>{{ objetsPlaces }}</b></font> objets placés.</li>
+			<li> <font color="blue"><b>{{ objetsNonPlaces }}</b></font> objets en attente de placement.</li> 
+		</ul>			
     </p>
 	
 {% endblock %}

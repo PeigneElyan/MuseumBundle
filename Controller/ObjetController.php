@@ -75,11 +75,20 @@ class ObjetController extends Controller
        $em = $this->getDoctrine()->getManager();
 
 		$objet = $em->getRepository('KEMuseumBundle:Objet')->findOneByCode($code);
+		$ordre = $em->getRepository('KEMuseumBundle:Ordre')->findOneByIdObjet($objet->getId());
 
+		
 		if (null === $objet) {
 			throw new NotFoundHttpException("L'objet de code ".$code." n'existe pas.");
 		}
 
+		$dejaPlace = false;
+		
+		if($ordre->getIdEtage() != NULL)
+		{
+			$dejaPlace = true;
+		}
+		
 		
 		$form = $this->get('form.factory')->createBuilder('form', $objet)
 			->add('code','text')
@@ -97,7 +106,8 @@ class ObjetController extends Controller
 		}
 
 		return $this->render('KEMuseumBundle:Objet:edit.html.twig', array(
-			'form'   => $form->createView()
+			'form'   => $form->createView(),
+			'dejaPlace' => $dejaPlace
 			));
     } 
 

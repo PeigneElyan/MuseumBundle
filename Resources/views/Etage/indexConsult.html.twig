@@ -24,7 +24,6 @@
 				{{ form_errors(form.code) }}
 
 				<div class="col-sm-4">
-					{# Génération de l'input. #}
 					{{ form_widget(form.code, {'attr': {'class': 'form-control'}}) }}
 				</div>
 			</div>
@@ -34,7 +33,7 @@
 				<i class="glyphicon glyphicon-chevron-left"></i>
 				Retour à l'accueil
 			</a>
-			{{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+			{{ form_widget(form.save, {'label': 'Consulter','attr': {'class': 'btn btn-primary'}}) }}
 
 			{{ form_rest(form) }}
   
@@ -69,7 +68,7 @@
 							<td>{{etage.placeDisponible}}</td>
 							<td>
 								<a href="{{ path('etage_consult', {'code': etage.code}) }}" class="btn btn-default">
-									Consulter cette etage
+									Consulter cet étage
 								</a>
 							</td>
 						</tr>
