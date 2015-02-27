@@ -28,14 +28,14 @@ $(document).ready(function() {
 			<h2>
 				Etat : 
 				{% if ordre.idEtage == null %}
-					<font color="red"> Non placer</font>
+					<font color="red"> Non placé</font>
 				{% else %}
-					<font color="green"> Placer</font>
+					<font color="green"> Placé</font>
 				{% endif %}
 			</h2>
 			<h3>
 				{% if ordre.idEtage == null %}
-					<a href="{{ path('etage_placement_objet', {'codeEtage': etage.code, 'codeObjet': objet.code}) }}" class="btn btn-default">
+					<a href="{{ path('objet_place', {'code': objet.code}) }}" class="btn btn-default">
 								Placer cet objet
 							</a>	
 				{% else %}

@@ -23,6 +23,6 @@ class MainController extends Controller
 			'objets' => $objets,
 			'ordres' => $ordres
 		));
-    }    
+    }   
 }
 	?>

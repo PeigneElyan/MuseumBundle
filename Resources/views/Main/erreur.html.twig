@@ -1,0 +1,20 @@
+{# src/KE/MuseumBundle/Resources/views/Main/add.html.twig #}
+
+{% extends "::base.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+        
+        <div class="well">
+			<font style="color:red;size:12;"><b>L'{{type}} de code "{{code}}" n'existe pas.</b></font>
+			<br><br>
+			<a href="{{ path('home') }}" class="btn btn-default">
+				<i class="glyphicon glyphicon-chevron-left"></i>
+				Retour à l'accueil
+			</a>
+		</div>
+    </body>
+{% endblock %}
