@@ -57,11 +57,11 @@ class EtageController extends Controller
 		if ($form->isValid()) {
 			$em = $this->getDoctrine()->getManager();
 			$code = $form->get('code')->getData();
-			$etage = $em->getRepository('KEMuseumBundle:etage')->findOneByCode($code);
+			$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneByCode($code);
 			if($etage == null)
 			{
 				return $this->render('KEMuseumBundle:Main:erreur.html.twig', array(
-				'type' => "etage",
+				'type' => "Ã©tage",
 				'code' => $code));
 			}
 			else
@@ -119,11 +119,11 @@ class EtageController extends Controller
 		if ($form->isValid()) {
 			$em = $this->getDoctrine()->getManager();
 			$code = $form->get('code')->getData();
-			$etage = $em->getRepository('KEMuseumBundle:etage')->findOneByCode($code);
+			$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneByCode($code);
 			if($etage == null)
 			{
 				return $this->render('KEMuseumBundle:Main:erreur.html.twig', array(
-				'type' => "etage",
+				'type' => "étage",
 				'code' => $code));
 			}
 			else
@@ -248,11 +248,11 @@ class EtageController extends Controller
 		if ($form->isValid()) {
 			$em = $this->getDoctrine()->getManager();
 			$code = $form->get('code')->getData();
-			$etage = $em->getRepository('KEMuseumBundle:etage')->findOneByCode($code);
+			$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneByCode($code);
 			if($etage == null)
 			{
 				return $this->render('KEMuseumBundle:Main:erreur.html.twig', array(
-				'type' => "etage",
+				'type' => "étage",
 				'code' => $code));
 			}
 			else
