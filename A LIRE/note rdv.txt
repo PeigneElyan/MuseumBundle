@@ -2,10 +2,6 @@
 
 enregistrement objet retour accueil feed back -> Dismissible alert
 
-etat étagère barre de progressions
-
-placé objet grissé bouton de placement lorsque l'étagère est pleine.
-
 parentabilité des étages -> meuble -> visiualisation
 
 accueil google charts
