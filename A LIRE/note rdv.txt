@@ -1,0 +1,25 @@
+
+
+enregistrement objet retour accueil feed back -> Dismissible alert
+
+consultation d'un objet -> rename liste des objets
+
+consultation objet -> possibilité d'édition de l'objet
+
+etat étagère barre de progressions
+
+consulté étagère modifier ordre -> colonne bouton juste flèche
+
+placé objet grissé bouton de placement lorsque l'étagère est pleine.
+
+parentabilité des étages -> meuble -> visiualisation
+
+accueil google charts
+
+saisie mettre mm a coté ( inputs groups )
+
+vue de face + vue de dessus consulter étage
+
+google font
+
+css covert contain image
