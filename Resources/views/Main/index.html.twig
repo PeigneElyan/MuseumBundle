@@ -8,10 +8,7 @@
 
 {% block body %}
 
-  <hr>
-  
-	<h3>GENERAL</h3>
-	{% set space = 0 %}
+{% set space = 0 %}
 	{% set nbEtagePlein = 0 %}
 	{% set nbEtageUse = 0 %}
 	{% set nbEtageVide = 0 %}
@@ -25,7 +22,6 @@
 			{% set nbEtageUse = nbEtageUse + 1 %}
 		{% endif %}
 	{% endfor %}
-	
 	
 	{% set longAPlacer = 0 %}
 	{% set objetsPlaces = 0 %}
@@ -42,6 +38,54 @@
 			{% set objetsPlaces = objetsPlaces + 1 %}
 		{% endif %}
 	{% endfor %}
+
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+      google.load('visualization', '1.0', {'packages':['corechart']});
+      google.setOnLoadCallback(drawChart);
+	  google.setOnLoadCallback(drawChart2);
+
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Etat');
+        data.addColumn('number', 'Nombre');
+        data.addRows([
+          ['Pleine', {{ nbEtagePlein }}],
+          ['Usage partiel', {{ nbEtageUse }}],
+		  ['Vide', {{ nbEtageVide }}]
+        ]);
+
+        var options = {'title':'Etat des étagères',
+                       'width':800,
+                       'height':600};
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_etage'));
+        chart.draw(data, options);
+		}
+		
+		
+		function drawChart2() {
+        var data2 = new google.visualization.DataTable();
+        data2.addColumn('string', 'Etat');
+        data2.addColumn('number', 'Nombre');
+        data2.addRows([
+          ['Placés', {{ objetsPlaces }}],
+          ['Non placés', {{ objetsNonPlaces }}]
+        ]);
+
+        var options2 = {'title':'Etat des objets',
+                       'width':800,
+                       'height':600};
+
+        var chart2 = new google.visualization.PieChart(document.getElementById('chart_objet'));
+        chart2.draw(data2, options2);
+      }
+    </script>
+
+  <hr>
+  
+	<h3>GENERAL</h3>
 	
 	<p>
         Il reste <font color="blue"><b>{{ space }}</b></font> mm d'espace en longueur à utiliser sur les étagères.
@@ -49,19 +93,14 @@
     </p>
 	<h3>ETAGERES</h3>
 	<p>
-        Il y a actuellement :
 		<ul> 
-			<li><font color="red"><b>{{ nbEtagePlein }}</b> étagères pleines.</font></li> 
-			<li><font color="blue"><b>{{ nbEtageUse }}</b> étagères utilisées mais non-pleines.</font></li> 
-			<li><font color="green"><b>{{ nbEtageVide }}</b> étagère vide.</font></li> 
+			<div id="chart_etage"></div>
 		</ul>
     </p>
 	<h3>OBJETS</h3>
 	<p>
-        Il y a actuellement :
 		<ul> 
-			<li> <font color="blue"><b>{{ objetsPlaces }}</b></font> objets placés.</li>
-			<li> <font color="blue"><b>{{ objetsNonPlaces }}</b></font> objets en attente de placement.</li> 
+			<div id="chart_objet"></div>
 		</ul>			
     </p>
 	

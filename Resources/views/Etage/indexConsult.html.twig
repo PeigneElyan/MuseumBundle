@@ -54,16 +54,15 @@
 					</thead>
 					<tbody>
 					{% for etage in etages %}
+					{% set pourcent = 100 - 100*etage.placeDisponible / etage.longueur %}
 						<tr>
 							<td>{{etage.code}}</td>
-							<td>
-								{% if etage.placeDisponible == etage.longueur %}
-									<font color="green"> Vide</font>
-								{% elseif etage.placeDisponible > 0%}
-									<font color="blue"> Disponible</font>
-								{% else %}
-									<font color="red"> Plein</font>
-								{% endif %}
+							<td width="50%">
+								<div class="progress">
+									<div class="progress-bar" role="progressbar" aria-valuenow="{{pourcent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pourcent}}%;">
+										{{pourcent}}%
+									</div>
+								</div>
 							</td>
 							<td>{{etage.placeDisponible}}</td>
 							<td>
