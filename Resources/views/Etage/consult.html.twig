@@ -75,10 +75,10 @@
 			<table class="table" id="table-1">
 				<thead>
 					<tr>
+						<th>Ordre</th>
 						<th>Code objet</th>
 						<th>Nom</th>
-						<th>Longueur</th>
-						<th>Ordre</th>
+						<th>Longueur</th>						
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -87,27 +87,27 @@
 						{% for objet in objets %}
 							{% if objet.id == ordre.idObjet %}
 								<tr>
-									<td>{{objet.code}}</td>
-									<td>{{objet.nom}}</td>
-									<td>{{objet.longueur}}</td>
-									<td>{{ordre.ordre}}</td>
 									<td>
 										{% if ordre.ordre > 1 %}
 										<a href="{{ path('etage_ordre_up', {'idEtage': etage.id, 'idObjet': objet.id}) }}" class="btn btn-default">
 											<i class="glyphicon glyphicon-chevron-up"></i>
-											Modifier ordre
 										</a>
 										{% endif %}
 										{% if ordre.ordre != ordres|length %}
 										<a href="{{ path('etage_ordre_down', {'idEtage': etage.id, 'idObjet': objet.id}) }}" class="btn btn-default">
 											<i class="glyphicon glyphicon-chevron-down"></i>
-											Modifier ordre
 										</a>
 										{% endif %}
 									</td>
+									<td>{{objet.code}}</td>
+									<td>{{objet.nom}}</td>
+									<td>{{objet.longueur}}</td>
 									<td>
+										<a href="{{ path('objet_consult', {'code': objet.code}) }}" class="btn btn-default">
+											<i class="glyphicon glyphicon-eye-open"></i>
+										</a>
 										<a href="{{ path('etage_retirer_objet', {'codeEtage': etage.code, 'codeObjet': objet.code}) }}" class="btn btn-default">
-											Retirer cet objet
+											<i class="glyphicon glyphicon-remove"></i>
 										</a>
 									</td>
 								</tr>
