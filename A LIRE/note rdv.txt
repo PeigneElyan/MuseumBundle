@@ -1,25 +1,19 @@
 
 
-enregistrement objet retour accueil feed back -> Dismissible alert
+A Faire - enregistrement objet retour accueil feed back -> Dismissible alert
 
-consultation d'un objet -> rename liste des objets
+A Faire - etat étagère barre de progressions
 
-consultation objet -> possibilité d'édition de l'objet
+A Faire - consulté étagère modifier ordre -> colonne bouton juste flèche
 
-etat étagère barre de progressions
+A Faire - placé objet grissé bouton de placement lorsque l'étagère est pleine.
 
-consulté étagère modifier ordre -> colonne bouton juste flèche
+A Faire -parentabilité des étages -> meuble -> visiualisation
 
-placé objet grissé bouton de placement lorsque l'étagère est pleine.
+A Faire - accueil google charts
 
-parentabilité des étages -> meuble -> visiualisation
+A Faire - vue de face + vue de dessus consulter étage
 
-accueil google charts
-
-saisie mettre mm a coté ( inputs groups )
-
-vue de face + vue de dessus consulter étage
-
-google font
+A Faire - google font
 
 css covert contain image
