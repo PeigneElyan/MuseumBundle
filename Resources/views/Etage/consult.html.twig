@@ -30,6 +30,16 @@
 					<font color="red"> Plein</font>
 				{% endif %}
 			</h2>
+			<h3> Action :
+				<a href="{{ path('etage_edit', {'code': etage.code}) }}" class="btn btn-default">
+					<i class="glyphicon glyphicon-edit"></i>
+				</a>
+				{% if etage.placeDisponible == etage.longueur %}
+					<a href="{{ path('etage_delete', {'code': etage.code}) }}" class="btn btn-default">
+						<i class="glyphicon glyphicon-trash"></i>
+					</a>	
+				{% endif %}
+			</h3>
 			<h3>Caractéristiques de l'étage : </h3>
 			<div class="well">
 			<table class="table">

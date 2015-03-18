@@ -68,8 +68,16 @@
 							<td>{{etage.placeDisponible}}</td>
 							<td>
 								<a href="{{ path('etage_consult', {'code': etage.code}) }}" class="btn btn-default">
-									Consulter cet étage
+									<i class="glyphicon glyphicon-eye-open"></i>
 								</a>
+								<a href="{{ path('etage_edit', {'code': etage.code}) }}" class="btn btn-default">
+									<i class="glyphicon glyphicon-edit"></i>
+								</a>
+								{% if etage.placeDisponible == etage.longueur %}
+									<a href="{{ path('etage_delete', {'code': etage.code}) }}" class="btn btn-default">
+										<i class="glyphicon glyphicon-trash"></i>
+									</a>
+								{% endif %}
 							</td>
 						</tr>
 					{% endfor %}
