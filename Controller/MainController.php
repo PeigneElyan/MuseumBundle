@@ -24,5 +24,21 @@ class MainController extends Controller
 			'ordres' => $ordres
 		));
     }   
+	
+	public function indexCodeAction($codeMessage)
+    {
+		$em = $this->getDoctrine()->getManager();
+		$etages = $em->getRepository('KEMuseumBundle:Etage')->findAll();
+		$objets = $em->getRepository('KEMuseumBundle:Objet')->findAll();
+		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findAll();
+
+       
+	   return $this->render('KEMuseumBundle:Main:index.html.twig', array(
+			'etages' => $etages,
+			'objets' => $objets,
+			'ordres' => $ordres,
+			'codeMessage' => $codeMessage
+		));
+    }   
 }
 	?>
