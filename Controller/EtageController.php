@@ -272,7 +272,7 @@ class EtageController extends Controller
 
 		$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneByCode($code);
 		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findByIdEtage($etage->getId(),array('ordre'=>'ASC'));
-		$objets = $em->getRepository('KEMuseumBundle:Objet')->findAll($code);
+		$objets = $em->getRepository('KEMuseumBundle:Objet')->findAll();
 
 		if (null === $etage) {
 			throw new NotFoundHttpException("L'étage de numéro ".$code." n'existe pas.");
