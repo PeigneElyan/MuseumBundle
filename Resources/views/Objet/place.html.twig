@@ -39,41 +39,58 @@
 			</table>
 			</div>
 		</div>
+		{% set nbEtageNonPlein = 0 %}
+		{% for etage in etages %}
+			{% if etage.placeDisponible >= objet.longueur %}
+				{% set nbEtageNonPlein = nbEtageNonPlein + 1 %}
+			{% endif %}
+		{% endfor %}
 		
-		<div class="table-responsive">
-			<h2>Etages :</h2>
-			<div class="well">
-			<table class="table">
-				<thead>
-				<tr>
-					<th>Code Etage</th>
-					<th>Etat</th>
-					<th>Place restante</th>
-					<th>Action</th>
-				</tr>
-				</thead>
-				<tbody>
-				{% for etage in etages %}
-				<tr>
-					<td>{{etage.code}}</td>
-					<td>
-						{% if etage.placeDisponible >= objet.longueur %}
-							<font color="green"> OK.</font>
-						{% else %}
-							<font color="red"> Pas assez de place.</font>
-						{% endif %}
-					</td>
-					<td>{{etage.placeDisponible}}</td>
-					<td>
-						<a href="{{ path('etage_placement_objet', {'codeEtage': etage.code, 'codeObjet': objet.code}) }}" class="btn btn-default">
-							Placer dans cet étage
-						</a>
-					</td>
-				</tr>
-				{% endfor %}
-				</tbody>
-			</table>
-		</div>
+		{% if nbEtageNonPlein != 0 %}
+			<div class="table-responsive">
+				<h2>Etages :</h2>
+				<div class="well">
+				<table class="table">
+					<thead>
+					<tr>
+						<th>Code Etage</th>
+						<th>Etat</th>
+						<th>Place restante</th>
+						<th>Action</th>
+					</tr>
+					</thead>
+					<tbody>
+					{% for etage in etages %}
+					<tr>
+						<td>{{etage.code}}</td>
+						<td>
+							{% if etage.placeDisponible >= objet.longueur %}
+								<font color="green"> OK.</font>
+							{% else %}
+								<font color="red"> Pas assez de place.</font>
+							{% endif %}
+						</td>
+						<td>{{etage.placeDisponible}}</td>
+						<td>
+							{% if etage.placeDisponible >= objet.longueur %}
+								<a href="{{ path('etage_placement_objet', {'codeEtage': etage.code, 'codeObjet': objet.code}) }}" class="btn btn-default">
+									<i class="glyphicon glyphicon-plus-sign"></i>									
+								</a>
+							{% endif %}							
+						</td>
+					</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		{% else %}
+			<h3>
+				Pas d'étage libre. </br>
+				<a href="{{ path('etage_add')}}" class="btn btn-default">
+					Ajouter un étage
+				</a>
+			</h3>
+		{% endif %}
 	</div>
     </body>
 {% endblock %}
