@@ -49,11 +49,14 @@
 				{{ form_errors(form.longueur) }}
 
 				<div class="col-sm-4">
-					{# Génération de l'input. #}
-					{{ form_widget(form.longueur, {'attr': {'class': 'form-control'}}) }}
+					<div class="input-group">
+						{{ form_widget(form.longueur, {'attr': {'class': 'form-control'}}) }}
+						<span class="input-group-addon" id="basic-addon2">mm</span>
+					</div>
 				</div>
 			</div>
 			
+
 			<div class="form-group">
 				{# Génération du label. #}
 				{{ form_label(form.profondeur, "Profondeur", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
@@ -62,10 +65,14 @@
 				{{ form_errors(form.profondeur) }}
 
 				<div class="col-sm-4">
-					{# Génération de l'input. #}
-					{{ form_widget(form.profondeur, {'attr': {'class': 'form-control'}}) }}
+					<div class="input-group">
+						{{ form_widget(form.profondeur, {'attr': {'class': 'form-control'}}) }}
+						<span class="input-group-addon" id="basic-addon2">mm</span>
+					</div>
 				</div>
 			</div>
+			
+			
 			
 			<div class="form-group">
 				{# Génération du label. #}
@@ -75,8 +82,10 @@
 				{{ form_errors(form.hauteur) }}
 
 				<div class="col-sm-4">
-					{# Génération de l'input. #}
-					{{ form_widget(form.hauteur, {'attr': {'class': 'form-control'}}) }}
+					<div class="input-group">
+						{{ form_widget(form.hauteur, {'attr': {'class': 'form-control'}}) }}
+						<span class="input-group-addon" id="basic-addon2">mm</span>
+					</div>
 				</div>
 			</div>
 			
