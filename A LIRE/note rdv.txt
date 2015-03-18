@@ -1,7 +1,4 @@
 
-
-enregistrement objet retour accueil feed back -> Dismissible alert
-
 parentabilité des étages -> meuble -> visiualisation
 
 vue de face + vue de dessus consulter étage

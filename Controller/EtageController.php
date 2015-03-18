@@ -37,7 +37,7 @@ class EtageController extends Controller
 			$em->persist($etage);
 			$em->flush();
 			
-			return $this->redirect($this->generateUrl('home'));
+			return $this->redirect($this->generateUrl('home_action', array('codeMessage' => '4')));
 		}
 			
 		return $this->render('KEMuseumBundle:Etage:add.html.twig', array(
@@ -68,7 +68,7 @@ class EtageController extends Controller
 
 		if ($form->handleRequest($request)->isValid()) {
 			$em->flush();
-			return $this->redirect($this->generateUrl('home'));
+			return $this->redirect($this->generateUrl('home_action', array('codeMessage' => '6')));
 		}
 
 		return $this->render('KEMuseumBundle:Etage:edit.html.twig', array(
@@ -108,7 +108,7 @@ class EtageController extends Controller
 			}
 			$em->remove($etage);
 			$em->flush();
-			return $this->redirect($this->generateUrl('home'));
+			return $this->redirect($this->generateUrl('home_action', array('codeMessage' => '5')));
 		}
 
 		return $this->render('KEMuseumBundle:Etage:delete.html.twig', array(
