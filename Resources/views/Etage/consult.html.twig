@@ -14,12 +14,7 @@
   #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
   #sortable li span { position: absolute; margin-left: -1.3em; }
   </style>
-  <script type="text/javascript">
-$(document).ready(function() {
-    <span class="comment">// Initialise the table</span>
-    $("#table-1").tableDnD();
-});
-</script>
+
 
         <h1>Consultation d'un étage</h1>
         
@@ -123,25 +118,42 @@ $(document).ready(function() {
 			</table>
 			</div>
 		</div>
+		{% set objetsPourcent = 0 %}
 		<div class="table-responsive">
 			<h3>Modélisation de l'étage : </h3></br>
+					<div id="objetsSurEtagere" style="height:100px;display:table;width:100%;">
 					{% for ordre in ordres %}
 						{% for objet in objets %}
 							{% if objet.id == ordre.idObjet %}
-								<div style="float:left;
+								<div style="display:table-cell;
 								border-width:2px;
 								border-style:solid;
 								width:{{ordre.pourcent}}%;
-								height:100px;
+								{% set objetsPourcent = objetsPourcent + ordre.pourcent %}
+								height:100%;
 								background:#E8C782;
 								vertical-align:middle;
 								text-align:center;
-								padding-top:40px;
 								"><strong>{{objet.nom}}</strong></div>
 							{% endif %}
 						{% endfor %}
 					{% endfor %}
-					<div style="float:right;width:100%;height:10px;background:#582900;"></div>
-		</div>	
+					</div>
+					<div id="plancherEtagere" style="float:right;width:100%;height:10px;background:#582900;"></div>
+		</div>
+		<script>
+			var calculerHauteur = function() {
+				console.log(jQuery(	'#plancherEtagere').width());
+				jQuery(	'#objetsSurEtagere').height(jQuery(	'#plancherEtagere').width()/10	);
+				jQuery(	'#objetsSurEtagere').width('{{objetsPourcent}}%');
+				console.log(jQuery(	'#plancherEtagere').width());
+				console.log(jQuery(	'#objetsSurEtagere').width());
+				
+			};
+			
+			$(window).on('resize',calculerHauteur);
+			jQuery( document ).ready(calculerHauteur);
+			
+		</script>
     </body>
 {% endblock %}
