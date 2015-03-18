@@ -36,11 +36,11 @@ $(document).ready(function() {
 				{% endif %}
 			</h2>
 			<h3> Action :
-				<a href="{{ path('objet_edit', {'code': objet.code}) }}" class="btn btn-default">
+				<a href="{{ path('etage_edit', {'code': etage.code}) }}" class="btn btn-default">
 					<i class="glyphicon glyphicon-edit"></i>
 				</a>
 				{% if etage.placeDisponible == etage.longueur %}
-					<a href="{{ path('objet_delete', {'code': objet.code}) }}" class="btn btn-default">
+					<a href="{{ path('etage_delete', {'code': etage.code}) }}" class="btn btn-default">
 						<i class="glyphicon glyphicon-trash"></i>
 					</a>	
 				{% endif %}
