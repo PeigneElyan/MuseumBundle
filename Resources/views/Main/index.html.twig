@@ -84,6 +84,31 @@
     </script>
 
   <hr>
+	
+	{% if app.request.attributes.get('_route_params')['codeMessage'] is defined %}
+		{% set param = app.request.attributes.get('_route_params') %}
+	{% endif %}
+	
+	{% if param is defined %}
+		<div class="alert alert-success alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<strong>Succès !</strong>
+		{% if param['codeMessage'] == '1' %}
+			L'objet à bien été ajouter.
+		{% elseif param['codeMessage'] == '2' %}	
+			L'objet à bien été supprimer.
+		{% elseif param['codeMessage'] == 3 %}
+			L'objet à bien été modifier.
+		{% elseif param['codeMessage'] == '4' %}
+			L'étage à bien été ajouter.
+		{% elseif param['codeMessage'] == '5' %}	
+			L'étage à bien été supprimer.
+		{% elseif param['codeMessage'] == '6' %}	
+			L'étage à bien été modifier.
+		{% endif %}
+	</div>
+	{% endif %}
+  
   
 	<h3>GENERAL</h3>
 	

@@ -41,7 +41,7 @@ class ObjetController extends Controller
 			$em->persist($ordre);
 			$em->flush();
 			
-			return $this->redirect($this->generateUrl('home'));
+			return $this->redirect($this->generateUrl('home_action', array('codeMessage' => '1')));
 
 		}
 			
@@ -113,7 +113,7 @@ class ObjetController extends Controller
 
 		if ($form->handleRequest($request)->isValid()) {
 			$em->flush();
-			return $this->redirect($this->generateUrl('home'));
+			return $this->redirect($this->generateUrl('home_action', array('codeMessage' => '3')));
 		}
 
 		return $this->render('KEMuseumBundle:Objet:edit.html.twig', array(
@@ -178,12 +178,14 @@ class ObjetController extends Controller
 			;
 
 		if ($form->handleRequest($request)->isValid()) {
-			$etage->setPlaceDisponible($etage->getPlaceDisponible()+$objet->getLongueur());
-			$em->persist($etage);
+			if(!empty($etage)){
+				$etage->setPlaceDisponible($etage->getPlaceDisponible()+$objet->getLongueur());
+				$em->persist($etage);
+			}			
 			$em->remove($objet);
 			$em->remove($ordre);
 			$em->flush();
-			return $this->redirect($this->generateUrl('home'));
+			return $this->redirect($this->generateUrl('home_action', array('codeMessage' => '2')));
 		}
 
 		return $this->render('KEMuseumBundle:Objet:delete.html.twig', array(
