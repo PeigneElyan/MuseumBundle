@@ -20,7 +20,7 @@ class Etage
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
+	
 	 /**
      * @var string
      *
@@ -55,6 +55,20 @@ class Etage
      * @ORM\Column(name="placeDisponible", type="integer")
      */
     private $placeDisponible;
+	
+	/**
+     * @var integer
+     *
+     * @ORM\Column(name="id_armoire", type="integer")
+     */
+    private $id_armoire;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ordre", type="integer")
+     */
+    private $ordre_armoire;
 
 	/**
      * on Create
@@ -189,5 +203,52 @@ class Etage
     public function getPlaceDisponible()
     {
         return $this->placeDisponible;
+    }
+	
+	
+    /**
+     * Set id_armoire
+     *
+     * @param integer $id_armoire
+     * @return Etage
+     */
+    public function setIdArmoire($id_armoire)
+    {
+        $this->id_armoire = $id_armoire;
+    
+        return $this;
+    }
+
+    /**
+     * Get id_armoire
+     *
+     * @return integer 
+     */
+    public function getIdArmoire()
+    {
+        return $this->id_armoire;
+    }
+
+    /**
+     * Set ordre_armoire
+     *
+     * @param integer $ordre_armoire
+     * @return Etage
+     */
+    public function setOrdreArmoire($ordre_armoire)
+    {
+        $this->ordre_armoire = $ordre_armoire;
+    
+        return $this;
+    }
+
+    /**
+     * Get ordre_armoire
+     *
+     * @return integer 
+     */
+    public function getOrdreArmoire()
+    {
+        return $this->ordre_armoire;
     }
 }

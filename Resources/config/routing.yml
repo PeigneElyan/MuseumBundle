@@ -20,19 +20,9 @@ objet_add:
     path:      /objet/add
     defaults:  { _controller: KEMuseumBundle:Objet:add }
 
-
-objet_index_edit:
-    path:      /objet/edit/index
-    defaults:  { _controller: KEMuseumBundle:Objet:indexEdit }
-
 objet_edit:
     path:      /objet/edit/{code}
     defaults:  { _controller: KEMuseumBundle:Objet:edit }
-
-
-objet_index_delete:
-    path:      /objet/delete/index
-    defaults:  { _controller: KEMuseumBundle:Objet:indexDelete }
 
 objet_delete:
     path:      /objet/delete/{code}
@@ -58,9 +48,6 @@ etage_add:
     path:      /etage/add
     defaults:  { _controller: KEMuseumBundle:Etage:add }
 
-etage_index_edit:
-    path:      /etage/edit/index
-    defaults:  { _controller: KEMuseumBundle:Etage:indexEdit }
 
 etage_edit:
     path:      /etage/edit/{code}
@@ -69,10 +56,6 @@ etage_edit:
 etage_placement_objet:
     path:      /etage/placement_objet/{codeEtage}/{codeObjet}
     defaults:  { _controller: KEMuseumBundle:Etage:placementObjet }
-
-etage_index_delete:
-    path:      /etage/delete/index
-    defaults:  { _controller: KEMuseumBundle:Etage:indexDelete }
 
 etage_delete:
     path:      /etage/delete/{code}
@@ -97,3 +80,23 @@ etage_ordre_up:
 etage_ordre_down:
     path:      /etage/ordreDown/{idEtage}/{idObjet}
     defaults:  { _controller: KEMuseumBundle:Etage:ordreDown }
+
+armoire_add:
+    path:      /armoire/add
+    defaults:  { _controller: KEMuseumBundle:Armoire:add }
+
+armoire_edit:
+    path:      /armoire/edit/{code}
+    defaults:  { _controller: KEMuseumBundle:Armoire:edit }
+
+armoire_delete:
+    path:      /armoire/delete/{code}
+    defaults:  { _controller: KEMuseumBundle:Armoire:delete }
+
+armoire_index_consult:
+    path:      /armoire/consult/index
+    defaults:  { _controller: KEMuseumBundle:Armoire:indexConsult }
+
+armoire_consult:
+    path:      /armoire/consult/{code}
+    defaults:  { _controller: KEMuseumBundle:Armoire:consult }
