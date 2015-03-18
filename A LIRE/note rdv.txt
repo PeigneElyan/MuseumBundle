@@ -1,10 +1,5 @@
 
-
-enregistrement objet retour accueil feed back -> Dismissible alert
-
 parentabilité des étages -> meuble -> visiualisation
-
-accueil google charts
 
 vue de face + vue de dessus consulter étage
 
