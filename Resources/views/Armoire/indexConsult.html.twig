@@ -1,0 +1,83 @@
+{# src/KE/MuseumBundle/Resources/views/Main/add.html.twig #}
+
+{% extends "::base.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+        <h1>Consultation d'une armoire</h1>
+        
+		<h3>Recherche d'une armoire</h3>
+        <div class="well">
+			{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+			{# Les erreurs générales du formulaire. #}
+			{{ form_errors(form) }}
+	
+			<div class="form-group">
+				{# Génération du label. #}
+				{{ form_label(form.code, "Code", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+	
+				{# Affichage des erreurs pour ce champ précis. #}
+				{{ form_errors(form.code) }}
+
+				<div class="col-sm-4">
+					{{ form_widget(form.code, {'attr': {'class': 'form-control'}}) }}
+				</div>
+			</div>
+	
+			
+			<a href="{{ path('home') }}" class="btn btn-default">
+				<i class="glyphicon glyphicon-chevron-left"></i>
+				Retour à l'accueil
+			</a>
+			{{ form_widget(form.save, {'label': 'Consulter','attr': {'class': 'btn btn-primary'}}) }}
+
+			{{ form_rest(form) }}
+  
+			{# Fermeture de la balise <form> du formulaire HTML #}
+			{{ form_end(form) }}
+		</div>
+		<h3>Liste des armoires</h3>
+        <div class="well">
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Code Armoire</th>
+							<th>Nombre d'étages</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					{% set nbEtages = 0 %}
+					{% for armoire in armoires %}
+					{% for etage in etages %}
+						{% if etage.id_armoire == armoire.id %}
+							{% set nbEtages = nbEtages + 1 %}
+						{% endif %}
+					{% endfor %}
+						<tr>
+							<td>{{armoire.code}}</td>
+							<td>{{nbEtages}}</td>
+							<td>
+								<a href="{{ path('armoire_consult', {'code': armoire.code}) }}" class="btn btn-default">
+									<i class="glyphicon glyphicon-eye-open"></i>
+								</a>
+								<a href="{{ path('armoire_edit', {'code': armoire.code}) }}" class="btn btn-default">
+									<i class="glyphicon glyphicon-edit"></i>
+								</a>
+								<a href="{{ path('etage_delete', {'code': armoire.code}) }}" class="btn btn-default">
+									<i class="glyphicon glyphicon-trash"></i>
+								</a>
+							</td>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+    </body>
+{% endblock %}

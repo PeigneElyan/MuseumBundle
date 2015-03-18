@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body %}
-        <h1>Ajout d'un étage</h1>
+        <h1>Ajout d'une armoire</h1>
         
         <div class="well">
 			{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
@@ -27,20 +27,7 @@
 					{{ form_widget(form.code, {'attr': {'class': 'form-control'}}) }}
 				</div>
 			</div>
-			
 	
-			<div class="form-group">
-				{# Génération du label. #}
-				{{ form_label(form.id_armoire, "Armoire", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-	
-				{# Affichage des erreurs pour ce champ précis. #}
-				{{ form_errors(form.id_armoire) }}
-
-				<div class="col-sm-4">
-					{# Génération de l'input. #}
-					{{ form_widget(form.id_armoire, {'attr': {'class': 'form-control'}}) }}
-				</div>
-			</div>
 			
 			<div class="form-group">
 				{# Génération du label. #}

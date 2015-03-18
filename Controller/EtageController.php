@@ -16,11 +16,13 @@ class EtageController extends Controller
 
 	public function addAction(Request $request)
     {
-		
+		$em = $this->getDoctrine()->getManager();
 		$etage = new Etage();
+		$armoires = $em->getRepository('KEMuseumBundle:Armoire')-> findAll();
 
 		$form = $this->get('form.factory')->createBuilder('form', $etage)
 			->add('code','text')
+			->add('id_armoire','choice', array('choices'=>$armoires))
 			->add('longueur','text')
 			->add('profondeur','text')
 			->add('hauteur','text')
@@ -30,8 +32,7 @@ class EtageController extends Controller
 			
 		$form->handleRequest($request);
 			
-		if ($form->isValid()) {
-			$em = $this->getDoctrine()->getManager();		
+		if ($form->isValid()) {		
 			$etage->onCreate();			
 			$em->persist($etage);
 			$em->flush();
@@ -44,36 +45,6 @@ class EtageController extends Controller
 		));
     } 
 	
-	public function indexEditAction(Request $request)
-    {
-        $form = $this->get('form.factory')->createBuilder('form')
-			->add('code','text')
-			->add('save','submit')
-			->getForm()
-			;
-			
-		$form->handleRequest($request);
-			
-		if ($form->isValid()) {
-			$em = $this->getDoctrine()->getManager();
-			$code = $form->get('code')->getData();
-			$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneByCode($code);
-			if($etage == null)
-			{
-				return $this->render('KEMuseumBundle:Main:erreur.html.twig', array(
-				'type' => "Ã©tage",
-				'code' => $code));
-			}
-			else
-			{	
-				return $this->redirect($this->generateUrl('etage_edit', array(
-				'code' => $code)));
-			}
-		}	
-		return $this->render('KEMuseumBundle:Etage:indexEdit.html.twig', array(
-			'form' => $form->createView()
-		));
-    }   
 	
 	public function editAction($code, Request $request)
     {
@@ -104,37 +75,6 @@ class EtageController extends Controller
 			'form'   => $form->createView(),
 			'etage'  => $etage
 			));
-    } 
-
-	public function indexDeleteAction(Request $request)
-    {
-        $form = $this->get('form.factory')->createBuilder('form')
-			->add('code','text')
-			->add('save','submit')
-			->getForm()
-			;
-			
-		$form->handleRequest($request);
-			
-		if ($form->isValid()) {
-			$em = $this->getDoctrine()->getManager();
-			$code = $form->get('code')->getData();
-			$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneByCode($code);
-			if($etage == null)
-			{
-				return $this->render('KEMuseumBundle:Main:erreur.html.twig', array(
-				'type' => "étage",
-				'code' => $code));
-			}
-			else
-			{	
-				return $this->redirect($this->generateUrl('etage_delete', array(
-				'code' => $code)));
-			}
-		}	
-		return $this->render('KEMuseumBundle:Etage:indexDelete.html.twig', array(
-			'form' => $form->createView()
-		));
     } 
 	
 	public function deleteAction($code, Request $request)
@@ -272,7 +212,7 @@ class EtageController extends Controller
 
 		$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneByCode($code);
 		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findByIdEtage($etage->getId(),array('ordre'=>'ASC'));
-		$objets = $em->getRepository('KEMuseumBundle:Objet')->findAll($code);
+		$objets = $em->getRepository('KEMuseumBundle:Objet')->findAll();
 
 		if (null === $etage) {
 			throw new NotFoundHttpException("L'étage de numéro ".$code." n'existe pas.");

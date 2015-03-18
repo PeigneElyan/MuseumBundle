@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body %}
-        <h1>Ajout d'un étage</h1>
+        <h1>Suppression d'un étage</h1>
         
         <div class="well">
 			{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
@@ -24,23 +24,10 @@
 
 				<div class="col-sm-4">
 					{# Génération de l'input. #}
-					{{ form_widget(form.code, {'attr': {'class': 'form-control'}}) }}
+					{{ form_widget(form.code, {'attr': {'class': 'form-control', 'disabled' : 'disabled'}}) }}
 				</div>
 			</div>
-			
 	
-			<div class="form-group">
-				{# Génération du label. #}
-				{{ form_label(form.id_armoire, "Armoire", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-	
-				{# Affichage des erreurs pour ce champ précis. #}
-				{{ form_errors(form.id_armoire) }}
-
-				<div class="col-sm-4">
-					{# Génération de l'input. #}
-					{{ form_widget(form.id_armoire, {'attr': {'class': 'form-control'}}) }}
-				</div>
-			</div>
 			
 			<div class="form-group">
 				{# Génération du label. #}
@@ -51,7 +38,7 @@
 
 				<div class="col-sm-4">
 					<div class="input-group">
-						{{ form_widget(form.longueur, {'attr': {'class': 'form-control'}}) }}
+						{{ form_widget(form.longueur, {'attr': {'class': 'form-control', 'disabled' : 'disabled'}}) }}
 						<span class="input-group-addon" id="basic-addon2">mm</span>
 					</div>
 				</div>
@@ -66,7 +53,7 @@
 
 				<div class="col-sm-4">
 					<div class="input-group">
-						{{ form_widget(form.profondeur, {'attr': {'class': 'form-control'}}) }}
+						{{ form_widget(form.profondeur, {'attr': {'class': 'form-control', 'disabled' : 'disabled'}}) }}
 						<span class="input-group-addon" id="basic-addon2">mm</span>
 					</div>
 				</div>
@@ -81,17 +68,14 @@
 
 				<div class="col-sm-4">
 					<div class="input-group">
-						{{ form_widget(form.hauteur, {'attr': {'class': 'form-control'}}) }}
+						{{ form_widget(form.hauteur, {'attr': {'class': 'form-control', 'disabled' : 'disabled'}}) }}
 						<span class="input-group-addon" id="basic-addon2">mm</span>
 					</div>
 				</div>
 			</div>
+			Êtes-vous sûr de vouloir supprimer cet objet ?
 			
-			<a href="{{ path('home') }}" class="btn btn-default">
-				<i class="glyphicon glyphicon-chevron-left"></i>
-				Retour à l'accueil
-			</a>
-			{{ form_widget(form.save, {'label': 'Ajouter','attr': {'class': 'btn btn-primary'}}) }}
+			{{ form_widget(form.save, {'label': 'Supprimer','attr': {'class': 'btn btn-danger'}}) }}
 
 			{{ form_rest(form) }}
   
