@@ -59,9 +59,9 @@ class Etage
 	/**
      * @var integer
      *
-     * @ORM\Column(name="id_armoire", type="integer")
+     * @ORM\Column(name="idArmoire", type="integer")
      */
-    private $id_armoire;
+    private $idArmoire;
 
     /**
      * @var integer
@@ -207,48 +207,48 @@ class Etage
 	
 	
     /**
-     * Set id_armoire
+     * Set idArmoire
      *
-     * @param integer $id_armoire
+     * @param integer $idArmoire
      * @return Etage
      */
-    public function setIdArmoire($id_armoire)
+    public function setIdArmoire($idArmoire)
     {
-        $this->id_armoire = $id_armoire;
+        $this->idArmoire = $idArmoire;
     
         return $this;
     }
 
     /**
-     * Get id_armoire
+     * Get idArmoire
      *
      * @return integer 
      */
     public function getIdArmoire()
     {
-        return $this->id_armoire;
+        return $this->idArmoire;
     }
 
     /**
-     * Set ordre_armoire
+     * Set ordreArmoire
      *
-     * @param integer $ordre_armoire
+     * @param integer $ordreArmoire
      * @return Etage
      */
-    public function setOrdreArmoire($ordre_armoire)
+    public function setOrdreArmoire($ordreArmoire)
     {
-        $this->ordre_armoire = $ordre_armoire;
+        $this->ordreArmoire = $ordreArmoire;
     
         return $this;
     }
 
     /**
-     * Get ordre_armoire
+     * Get ordreArmoire
      *
      * @return integer 
      */
     public function getOrdreArmoire()
     {
-        return $this->ordre_armoire;
+        return $this->ordreArmoire;
     }
 }

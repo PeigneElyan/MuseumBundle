@@ -29,7 +29,6 @@ class ArmoireController extends Controller
 			
 		if ($form->isValid()) {
 			$em = $this->getDoctrine()->getManager();		
-			$armoire->onCreate();			
 			$em->persist($armoire);
 			$em->flush();
 			
@@ -47,7 +46,7 @@ class ArmoireController extends Controller
 
 		$armoire = $em->getRepository('KEMuseumBundle:Armoire')->findOneByCode($code);
 
-		if (null === $etage) {
+		if (null === $armoire) {
 			throw new NotFoundHttpException("L'armoire de numéro ".$code." n'existe pas.");
 		}
 
@@ -98,9 +97,9 @@ class ArmoireController extends Controller
 						$em->persist($or);
 					}
 				}
+				$em->remove($et);
 			}
 			$em->remove($armoire);
-			$em->remove($etages);
 			$em->flush();
 			return $this->redirect($this->generateUrl('home'));
 		}
