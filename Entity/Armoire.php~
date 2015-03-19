@@ -65,17 +65,4 @@ class Armoire
 	{
 		return (string) $this->getCode();
 	}
-
-    /**
-     * Set id
-     *
-     * @param integer $id
-     * @return Armoire
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    
-        return $this;
-    }
 }

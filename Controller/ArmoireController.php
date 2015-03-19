@@ -1,7 +1,5 @@
 <?php
 
-// src/KE/MuseumBundle/Controller/EtageController.php
-
 namespace KE\MuseumBundle\Controller;
 
 use KE\MuseumBundle\Entity\Armoire;
@@ -90,7 +88,7 @@ class ArmoireController extends Controller
 		if ($form->handleRequest($request)->isValid()) {
 			foreach ($etages as $et) {
 				foreach($ordres as $or) {
-					if($or->getIdEtage() == $et.getId())
+					if($or->getIdEtage() == $et->getId())
 					{
 						$or->setPourcent(null);
 						$or->setIdEtage(null);

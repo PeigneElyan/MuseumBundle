@@ -55,7 +55,8 @@
 					{% set nbEtages = 0 %}
 					{% for armoire in armoires %}
 					{% for etage in etages %}
-						{% if etage.id_armoire == armoire.id %}
+						{% set nbEtages = 0 %}
+						{% if etage.idArmoire == armoire.id %}
 							{% set nbEtages = nbEtages + 1 %}
 						{% endif %}
 					{% endfor %}

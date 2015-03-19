@@ -31,14 +31,14 @@
 	
 			<div class="form-group">
 				{# Génération du label. #}
-				{{ form_label(form.id_armoire, "Armoire", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+				{{ form_label(form.idArmoire, "Armoire", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 	
 				{# Affichage des erreurs pour ce champ précis. #}
-				{{ form_errors(form.id_armoire) }}
+				{{ form_errors(form.idArmoire) }}
 
 				<div class="col-sm-4">
 					{# Génération de l'input. #}
-					{{ form_widget(form.id_armoire, {'attr': {'class': 'form-control'}}) }}
+					{{ form_widget(form.idArmoire, {'attr': {'class': 'form-control'}}) }}
 				</div>
 			</div>
 			
