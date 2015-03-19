@@ -3,7 +3,7 @@ home:
     defaults:  { _controller: KEMuseumBundle:Main:index }
 
 home_action:
-    path:      /{codeMessage}
+    path:      /accueil/{type}/{codeMessage}
     defaults:  { _controller: KEMuseumBundle:Main:index }
 
 erreur:
@@ -30,6 +30,10 @@ objet_delete:
 
 objet_index_place:
     path:      /objet/place/index
+    defaults:  { _controller: KEMuseumBundle:Objet:indexPlace }
+
+objet_index_place_erreur:
+    path:      /objet/place/index/{code}
     defaults:  { _controller: KEMuseumBundle:Objet:indexPlace }
 
 objet_place:
@@ -67,6 +71,10 @@ etage_retirer_objet:
 
 etage_index_consult:
     path:      /etage/consult/index
+    defaults:  { _controller: KEMuseumBundle:Etage:indexConsult }
+
+etage_index_consult_erreur:
+    path:      /etage/consult/index/{code}
     defaults:  { _controller: KEMuseumBundle:Etage:indexConsult }
 
 etage_consult:

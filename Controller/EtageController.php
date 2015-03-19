@@ -37,7 +37,7 @@ class EtageController extends Controller
 			$em->persist($etage);
 			$em->flush();
 			
-			return $this->redirect($this->generateUrl('home_action', array('codeMessage' => '4')));
+			return $this->redirect($this->generateUrl('home_action', array('type' => 'succes', 'codeMessage' => '4')));
 		}
 			
 		return $this->render('KEMuseumBundle:Etage:add.html.twig', array(
@@ -68,7 +68,7 @@ class EtageController extends Controller
 
 		if ($form->handleRequest($request)->isValid()) {
 			$em->flush();
-			return $this->redirect($this->generateUrl('home_action', array('codeMessage' => '6')));
+			return $this->redirect($this->generateUrl('home_action', array('type' => 'succes', 'codeMessage' => '6')));
 		}
 
 		return $this->render('KEMuseumBundle:Etage:edit.html.twig', array(
@@ -108,7 +108,7 @@ class EtageController extends Controller
 			}
 			$em->remove($etage);
 			$em->flush();
-			return $this->redirect($this->generateUrl('home_action', array('codeMessage' => '5')));
+			return $this->redirect($this->generateUrl('home_action', array('type' => 'succes', 'codeMessage' => '5')));
 		}
 
 		return $this->render('KEMuseumBundle:Etage:delete.html.twig', array(
@@ -191,9 +191,8 @@ class EtageController extends Controller
 			$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneByCode($code);
 			if($etage == null)
 			{
-				return $this->render('KEMuseumBundle:Main:erreur.html.twig', array(
-				'type' => "étage",
-				'code' => $code));
+				return $this->redirect($this->generateUrl('etage_index_consult_erreur', array(
+				'code' => $code)));
 			}
 			else
 			{	

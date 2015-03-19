@@ -1,0 +1,5 @@
+A Justifier dans le rapport:
+
+Edition étage : 
+	-> pas possibilité de changer de code armoire 
+	-> chaque étage dans une armoire peut être de taille différente

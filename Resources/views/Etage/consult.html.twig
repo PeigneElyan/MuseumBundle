@@ -78,7 +78,9 @@
 						<th>Ordre</th>
 						<th>Code objet</th>
 						<th>Nom</th>
-						<th>Longueur</th>						
+						<th>Longueur</th>	
+						<th>Hauteur</th>	
+						<th>Profondeur</th>	
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -102,6 +104,8 @@
 									<td>{{objet.code}}</td>
 									<td>{{objet.nom}}</td>
 									<td>{{objet.longueur}}</td>
+									<td>{{objet.hauteur}}</td>
+									<td>{{objet.profondeur}}</td>
 									<td>
 										<a href="{{ path('objet_consult', {'code': objet.code}) }}" class="btn btn-default">
 											<i class="glyphicon glyphicon-eye-open"></i>
@@ -120,7 +124,7 @@
 		</div>
 		{% set objetsPourcent = 0 %}
 		<div class="table-responsive">
-			<h3>Modélisation de l'étage : </h3></br>
+			<h3>Etage vue de face: </h3></br>
 					<div id="objetsSurEtagere" style="height:100px;display:table;width:100%;">
 					{% for ordre in ordres %}
 						{% for objet in objets %}

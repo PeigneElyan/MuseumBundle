@@ -41,7 +41,7 @@ class ObjetController extends Controller
 			$em->persist($ordre);
 			$em->flush();
 			
-			return $this->redirect($this->generateUrl('home_action', array('codeMessage' => '1')));
+			return $this->redirect($this->generateUrl('home_action', array('type' => 'succes', 'codeMessage' => '1')));
 
 		}
 			
@@ -49,37 +49,6 @@ class ObjetController extends Controller
 			'form' => $form->createView(),
 		));
     } 
-	
-	public function indexEditAction(Request $request)
-    {
-        $form = $this->get('form.factory')->createBuilder('form')
-			->add('code','text')
-			->add('save','submit')
-			->getForm()
-			;
-			
-		$form->handleRequest($request);
-			
-		if ($form->isValid()) {
-			$em = $this->getDoctrine()->getManager();
-			$code = $form->get('code')->getData();
-			$objet = $em->getRepository('KEMuseumBundle:Objet')->findOneByCode($code);
-			if($objet == null)
-			{
-				return $this->render('KEMuseumBundle:Main:erreur.html.twig', array(
-				'type' => "objet",
-				'code' => $code));
-			}
-			else
-			{	
-				return $this->redirect($this->generateUrl('objet_edit', array(
-				'code' => $code)));
-			}	
-		}	
-		return $this->render('KEMuseumBundle:Objet:indexEdit.html.twig', array(
-			'form' => $form->createView()
-		));
-    }   
 	
 	public function editAction($code, Request $request)
     {
@@ -113,45 +82,13 @@ class ObjetController extends Controller
 
 		if ($form->handleRequest($request)->isValid()) {
 			$em->flush();
-			return $this->redirect($this->generateUrl('home_action', array('codeMessage' => '3')));
+			return $this->redirect($this->generateUrl('home_action', array('type' => 'succes', 'codeMessage' => '3')));
 		}
 
 		return $this->render('KEMuseumBundle:Objet:edit.html.twig', array(
 			'form'   => $form->createView(),
 			'dejaPlace' => $dejaPlace
 			));
-    } 
-
-	public function indexDeleteAction(Request $request)
-    {
-        $form = $this->get('form.factory')->createBuilder('form')
-			->add('code','text')
-			->add('save','submit')
-			->getForm()
-			;
-			
-		$form->handleRequest($request);
-			
-		if ($form->isValid()) {
-			$em = $this->getDoctrine()->getManager();
-			$code = $form->get('code')->getData();
-			$objet = $em->getRepository('KEMuseumBundle:Objet')->findOneByCode($code);
-			if($objet == null)
-			{
-				return $this->render('KEMuseumBundle:Main:erreur.html.twig', array(
-				'type' => "objet",
-				'code' => $code));
-			}
-			else
-			{	
-				return $this->redirect($this->generateUrl('objet_delete', array(
-				'code' => $code)));
-			}	
-			
-		}	
-		return $this->render('KEMuseumBundle:Objet:indexDelete.html.twig', array(
-			'form' => $form->createView()
-		));
     } 
 	
 	public function deleteAction($code, Request $request)
@@ -185,7 +122,7 @@ class ObjetController extends Controller
 			$em->remove($objet);
 			$em->remove($ordre);
 			$em->flush();
-			return $this->redirect($this->generateUrl('home_action', array('codeMessage' => '2')));
+			return $this->redirect($this->generateUrl('home_action', array('type' => 'succes', 'codeMessage' => '2')));
 		}
 
 		return $this->render('KEMuseumBundle:Objet:delete.html.twig', array(
@@ -213,9 +150,8 @@ class ObjetController extends Controller
 			$objet = $em->getRepository('KEMuseumBundle:Objet')->findOneByCode($code);
 			if($objet == null)
 			{
-				return $this->render('KEMuseumBundle:Main:erreur.html.twig', array(
-				'type' => "objet",
-				'code' => $code));
+				return $this->redirect($this->generateUrl('objet_index_place_erreur', array(
+				'code' => $code)));
 			}
 			else
 			{	

@@ -90,21 +90,40 @@
 	{% endif %}
 	
 	{% if param is defined %}
-		<div class="alert alert-success alert-dismissible" role="alert">
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<strong>Succès !</strong>
-		{% if param['codeMessage'] == '1' %}
-			L'objet à bien été ajouter.
-		{% elseif param['codeMessage'] == '2' %}	
-			L'objet à bien été supprimer.
-		{% elseif param['codeMessage'] == 3 %}
-			L'objet à bien été modifier.
-		{% elseif param['codeMessage'] == '4' %}
-			L'étage à bien été ajouter.
-		{% elseif param['codeMessage'] == '5' %}	
-			L'étage à bien été supprimer.
-		{% elseif param['codeMessage'] == '6' %}	
-			L'étage à bien été modifier.
+		{% if param['type'] == 'succes' %}
+			<div class="alert alert-success alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<strong>Succès ! </strong>
+			{% if param['codeMessage'] == '1' %}
+				L'objet à bien été ajouté.
+			{% elseif param['codeMessage'] == '2' %}	
+				L'objet à bien été supprimé.
+			{% elseif param['codeMessage'] == 3 %}
+				L'objet à bien été modifié.
+			{% elseif param['codeMessage'] == '4' %}
+				L'étage à bien été ajouté.
+			{% elseif param['codeMessage'] == '5' %}	
+				L'étage à bien été supprimé.
+			{% elseif param['codeMessage'] == '6' %}	
+				L'étage à bien été modifié.
+			{% elseif param['codeMessage'] == '7' %}
+				L'armoire à bien été ajoutée.
+			{% elseif param['codeMessage'] == '8' %}	
+				L'armoire à bien été supprimée.
+			{% elseif param['codeMessage'] == '9' %}	
+				L'armoire à bien été modifiée.
+			{% endif %}
+		{% else %}
+			<div class="alert alert-danger alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<strong>Erreur ! </strong>
+			{% if param['codeMessage'] == '1' %}
+				L'objet {{ param['type'] }} n'existe pas.
+			{% elseif param['codeMessage'] == '2' %}	
+				L'étage {{ param['type'] }} n'existe pas.
+			{% elseif param['codeMessage'] == 3 %}
+				L'armoire {{ param['type'] }} n'existe pas.
+			{% endif %}
 		{% endif %}
 	</div>
 	{% endif %}
