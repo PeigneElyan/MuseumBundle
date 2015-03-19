@@ -18,11 +18,11 @@ class EtageController extends Controller
     {
 		$em = $this->getDoctrine()->getManager();
 		$etage = new Etage();
-		$armoires = $em->getRepository('KEMuseumBundle:Armoire')-> findAll();
+		$armoires = $em->getRepository('KEMuseumBundle:Armoire');
 
 		$form = $this->get('form.factory')->createBuilder('form', $etage)
 			->add('code','text')
-			->add('id_armoire','choice', array('choices'=>$armoires))
+			->add('idArmoire', 'text')
 			->add('longueur','text')
 			->add('profondeur','text')
 			->add('hauteur','text')
@@ -33,7 +33,8 @@ class EtageController extends Controller
 		$form->handleRequest($request);
 			
 		if ($form->isValid()) {		
-			$etage->onCreate();			
+			$etage->onCreate();	
+			$etage->setIdArmoire($armoires->findOneByCode($etage->getIdArmoire())->getId());
 			$em->persist($etage);
 			$em->flush();
 			
