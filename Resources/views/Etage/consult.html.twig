@@ -49,6 +49,16 @@
 						<td> {{etage.code}} </td>
 					</tr>
 					<tr>
+						<td> <b>Armoire </b></td>
+						<td> 
+							{% for armoire in armoires %}								
+								{% if armoire.id == etage.idArmoire %}
+									{{ armoire.code }}
+								{% endif %}								
+							{% endfor %}
+						</td>
+					</tr>
+					<tr>
 						<td> <b>Longueur </b></td>
 						<td> {{etage.longueur}} </td>
 					</tr>
