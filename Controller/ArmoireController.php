@@ -148,7 +148,7 @@ class ArmoireController extends Controller
        $em = $this->getDoctrine()->getManager();
 
 		$armoire = $em->getRepository('KEMuseumBundle:Armoire')->findOneByCode($code);
-		$etages = $em->getRepository('KEMuseumBundle:Etage')->findByIdArmoire($armoire->getId(),array('ordre_armoire'=>'ASC'));
+		$etages = $em->getRepository('KEMuseumBundle:Etage')->findByIdArmoire($armoire->getId(),array('ordreArmoire'=>'ASC'));
 		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findAll();
 		$objets = $em->getRepository('KEMuseumBundle:Objet')->findAll();
 

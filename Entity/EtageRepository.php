@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class EtageRepository extends EntityRepository
 {
+
+	public function getNbForArmoire($idArmoire) {
+ 
+        return $this->createQueryBuilder('o')
+                    ->select('COUNT(o)')
+					->where('o.idArmoire = :idArmoire')
+					->setParameter('idArmoire',$idArmoire)
+					->getQuery()
+                    ->getSingleScalarResult();
+    }
+
 }

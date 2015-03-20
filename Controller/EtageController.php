@@ -40,6 +40,13 @@ class EtageController extends Controller
 			}
 			$etage->onCreate();	
 			$etage->setIdArmoire($armoires->findOneByCode($etage->getIdArmoire())->getId());
+			$count = $em->getRepository('KEMuseumBundle:Etage')->getNbForArmoire($etage->getIdArmoire());
+		
+			if($count == null){
+			$count=0;
+			}
+			$count+=1;
+			$etage->setOrdreArmoire($count);
 			$em->persist($etage);
 			$em->flush();
 			
