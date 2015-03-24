@@ -122,41 +122,75 @@
 			</table>
 			</div>
 		</div>
-		{% set objetsPourcent = 0 %}
 		<div class="table-responsive">
-			<h3>Etage vue de face: </h3></br>
-					<div id="objetsSurEtagere" style="height:100px;display:table;width:100%;">
+			<h3>Vue de face : </h3></br>
+					<div class="table-responsive" style="transform: scaleY(-1);height:{{etage.hauteur}};">
+					<div id="plancherEtagere" style="clear:left;width:100%;height:10px;background:#582900;"></div>
 					{% for ordre in ordres %}
 						{% for objet in objets %}
 							{% if objet.id == ordre.idObjet %}
-								<div style="display:table-cell;
-								border-width:2px;
+								<div 
+								id="{{objet.code}}"
+								style="
+								float:left;
+								border-width:1px;
 								border-style:solid;
-								width:{{ordre.pourcent}}%;
-								{% set objetsPourcent = objetsPourcent + ordre.pourcent %}
-								height:100%;
+								{% set objetLongueur = 0 %}
+								{% set objetLongueur = objet.longueur*100/etage.longueur %}
+								width:{{objetLongueur}}%;
 								background:#E8C782;
 								vertical-align:middle;
 								text-align:center;
-								"><strong>{{objet.nom}}</strong></div>
+								-webkit-transform:rotate(180deg);
+								transform: scaleY(-1);
+								"><strong>{{objet.code}}</strong></div>
 							{% endif %}
 						{% endfor %}
 					{% endfor %}
 					</div>
-					<div id="plancherEtagere" style="float:right;width:100%;height:10px;background:#582900;"></div>
+		</div>
+		<div class="table-responsive">
+			<h3>Vue de dessus : </h3></br>
+					<div id="etagere" class="table-responsive" style="background:#582900;">
+					{% for ordre in ordres %}
+						{% for objet in objets %}
+							{% if objet.id == ordre.idObjet %}
+								<div 
+								id="{{objet.code}}bis"
+								style="
+								float:left;
+								border-width:1px;
+								border-style:solid;
+								{% set objetLongueur = 0 %}
+								{% set objetLongueur = objet.longueur*100/etage.longueur %}
+								width:{{objetLongueur}}%;
+								background:#E8C782;
+								vertical-align:middle;
+								text-align:center;
+								"><strong>{{objet.code}}</strong></div>
+							{% endif %}
+						{% endfor %}
+					{% endfor %}
+					</div>
 		</div>
 		<script>
 			var calculerHauteur = function() {
-				console.log(jQuery(	'#plancherEtagere').width());
-				jQuery(	'#objetsSurEtagere').height(jQuery(	'#plancherEtagere').width()/10	);
-				jQuery(	'#objetsSurEtagere').width('{{objetsPourcent}}%');
-				console.log(jQuery(	'#plancherEtagere').width());
-				console.log(jQuery(	'#objetsSurEtagere').width());
-				
+				{% for objet in objets %}
+					jQuery(	'#{{objet.code}}').height(jQuery('#{{objet.code}}').width()*{{objet.hauteur}}/{{objet.longueur}});
+				{% endfor %}
+			};
+			
+			var calculerProfondeur = function() {
+				jQuery('#etagere').height(jQuery('#etagere').width()*{{etage.profondeur}}/{{etage.longueur}});
+				{% for objet in objets %}
+					jQuery(	'#{{objet.code}}bis').height(jQuery('#{{objet.code}}bis').width()*{{objet.profondeur}}/{{objet.longueur}});
+				{% endfor %}
 			};
 			
 			$(window).on('resize',calculerHauteur);
+			$(window).on('resize',calculerProfondeur);
 			jQuery( document ).ready(calculerHauteur);
+			jQuery( document ).ready(calculerProfondeur);
 			
 		</script>
     </body>
