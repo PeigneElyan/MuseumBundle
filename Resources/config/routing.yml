@@ -111,3 +111,11 @@ armoire_index_consult:
 armoire_consult:
     path:      /armoire/consult/{code}
     defaults:  { _controller: KEMuseumBundle:Armoire:consult }
+
+armoire_ordre_up:
+    path:      /armoire/ordreUp/{idArmoire}/{idEtage}
+    defaults:  { _controller: KEMuseumBundle:Armoire:ordreUp }
+
+armoire_ordre_down:
+    path:      /armoire/ordreDown/{idArmoire}/{idEtage}
+    defaults:  { _controller: KEMuseumBundle:Armoire:ordreDown }

@@ -7,13 +7,9 @@
 {% endblock %}
 
 {% block body %}
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-  <style>
-  #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-  #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
-  #sortable li span { position: absolute; margin-left: -1.3em; }
-  </style>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
 
 
         <h1>Liste des étages</h1>
@@ -159,6 +155,7 @@
 					{% endfor %}
 					</div>
 		</div>
+		<br>
 		<div class="table-responsive">
 			<h3>Vue de dessus : </h3></br>
 					<div id="etagere" class="table-responsive" style="background:#582900;">
