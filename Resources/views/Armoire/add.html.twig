@@ -9,6 +9,18 @@
 {% block body %}
         <h1>Ajout d'une armoire</h1>
         
+		{% if app.request.attributes.get('_route_params')['code'] is defined %}
+			{% set param = app.request.attributes.get('_route_params') %}
+		{% endif %}
+		
+		{% if param is defined %}
+			<div class="alert alert-danger alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<strong>Erreur ! </strong>
+					L'armoire {{ param['code'] }} existe déjà !
+			</div>	
+		{% endif %}
+		
         <div class="well">
 			{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 

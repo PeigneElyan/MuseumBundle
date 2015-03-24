@@ -14,8 +14,10 @@ class ArmoireController extends Controller
 
 	public function addAction(Request $request)
     {
-		
+		$em = $this->getDoctrine()->getManager();
+		$armoires = $em->getRepository('KEMuseumBundle:Armoire')->findAll();
 		$armoire = new Armoire();
+		$erreur = false;
 
 		$form = $this->get('form.factory')->createBuilder('form', $armoire)
 			->add('code','text')
@@ -24,16 +26,27 @@ class ArmoireController extends Controller
 			;
 			
 		$form->handleRequest($request);
-			
+		
 		if ($form->isValid()) {
-			$em = $this->getDoctrine()->getManager();		
-			$em->persist($armoire);
-			$em->flush();
+			foreach($armoires as $val){
+				if($armoire->getCode() == $val->getCode()){
+					$erreur = true;
+				}
+			}
+			if($erreur){
+				return $this->redirect($this->generateUrl('armoire_add_erreur', array('code' => $armoire->getCode() )));
+			}
+			else{
 			
-			return $this->redirect($this->generateUrl('home_action', array('type' => 'succes', 'codeMessage' => '7')));
+				$em = $this->getDoctrine()->getManager();		
+				$em->persist($armoire);
+				$em->flush();
+			
+				return $this->redirect($this->generateUrl('home_action', array('type' => 'succes', 'codeMessage' => '7')));
+			}
 		}
 			
-		return $this->render('KEMuseumBundle:Armoire:add.html.twig', array(
+			return $this->render('KEMuseumBundle:Armoire:add.html.twig', array(
 			'form' => $form->createView()
 		));
     } 
@@ -57,7 +70,7 @@ class ArmoireController extends Controller
 
 		if ($form->handleRequest($request)->isValid()) {
 			$em->flush();
-			return $this->redirect($this->generateUrl('home'));
+			return $this->redirect($this->generateUrl('home_action', array('type' => 'succes', 'codeMessage' => '9')));
 		}
 
 		return $this->render('KEMuseumBundle:Armoire:edit.html.twig', array(
@@ -99,7 +112,7 @@ class ArmoireController extends Controller
 			}
 			$em->remove($armoire);
 			$em->flush();
-			return $this->redirect($this->generateUrl('home'));
+			return $this->redirect($this->generateUrl('home_action', array('type' => 'succes', 'codeMessage' => '8')));
 		}
 
 		return $this->render('KEMuseumBundle:Armoire:delete.html.twig', array(

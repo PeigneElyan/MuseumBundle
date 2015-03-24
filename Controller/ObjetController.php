@@ -221,13 +221,14 @@ class ObjetController extends Controller
 
 		$objet = $em->getRepository('KEMuseumBundle:Objet')->findOneByCode($code);
 		$etages = $em->getRepository('KEMuseumBundle:Etage')->findAll();
+		$armoires = $em->getRepository('KEMuseumBundle:Armoire')->findAll();
 
 		if (null === $objet) {
 			throw new NotFoundHttpException("L'objet de code ".$code." n'existe pas.");
 		}
 
 		return $this->render('KEMuseumBundle:Objet:place.html.twig', array(
-			'etages' => $etages , 'objet' => $objet
+			'etages' => $etages , 'objet' => $objet, 'armoires' => $armoires
 			));
     } 
 	

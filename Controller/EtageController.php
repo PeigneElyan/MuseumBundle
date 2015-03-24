@@ -17,8 +17,10 @@ class EtageController extends Controller
 	public function addAction(Request $request)
     {
 		$em = $this->getDoctrine()->getManager();
+		$etages = $em->getRepository('KEMuseumBundle:Etage')->findAll();
 		$etage = new Etage();
 		$armoires = $em->getRepository('KEMuseumBundle:Armoire');
+		$erreur = false;
 
 		$form = $this->get('form.factory')->createBuilder('form', $etage)
 			->add('code','text')
@@ -33,24 +35,34 @@ class EtageController extends Controller
 		$form->handleRequest($request);
 			
 		if ($form->isValid()) {		
-			if($armoires == null)
-			{
-				return $this->redirect($this->generateUrl('etage_add_erreur', array(
-				'code' => $code)));
+			foreach($etages as $val){
+				if($etage->getCode() == $val->getCode()){
+					$erreur = true;
+				}
 			}
-			$etage->onCreate();	
-			$etage->setIdArmoire($armoires->findOneByCode($etage->getIdArmoire())->getId());
-			$count = $em->getRepository('KEMuseumBundle:Etage')->getNbForArmoire($etage->getIdArmoire());
-		
-			if($count == null){
-			$count=0;
+			if($erreur){
+				return $this->redirect($this->generateUrl('etage_add_erreur', array('code' => $armoire->getCode(), 'type' => 'codeAlreadyExist' )));
 			}
-			$count+=1;
-			$etage->setOrdreArmoire($count);
-			$em->persist($etage);
-			$em->flush();
+			else{
+				if($armoires == null)
+				{
+					return $this->redirect($this->generateUrl('etage_add_erreur', array(
+					'code' => $code, 'type' => 'codeAlreadyExist')));
+				}
+				$etage->onCreate();	
+				$etage->setIdArmoire($armoires->findOneByCode($etage->getIdArmoire())->getId());
+				$count = $em->getRepository('KEMuseumBundle:Etage')->getNbForArmoire($etage->getIdArmoire());
 			
-			return $this->redirect($this->generateUrl('home_action', array('type' => 'succes', 'codeMessage' => '4')));
+				if($count == null){
+				$count=0;
+				}
+				$count+=1;
+				$etage->setOrdreArmoire($count);
+				$em->persist($etage);
+				$em->flush();
+				
+				return $this->redirect($this->generateUrl('home_action', array('type' => 'succes', 'codeMessage' => '4')));
+			}
 		}
 			
 		return $this->render('KEMuseumBundle:Etage:add.html.twig', array(

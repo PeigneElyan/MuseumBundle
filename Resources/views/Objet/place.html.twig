@@ -55,6 +55,7 @@
 					<tr>
 						<th>Code Etage</th>
 						<th>Etat</th>
+						<th>Armoire</th>
 						<th>Place restante</th>
 						<th>Action</th>
 					</tr>
@@ -70,6 +71,13 @@
 										{{pourcent|number_format}}%
 									</div>
 								</div>
+							</td>
+						<td>
+							{% for armoire in armoires %}								
+								{% if armoire.id == etage.idArmoire %}
+									{{ armoire.code }}
+								{% endif %}								
+							{% endfor %}
 							</td>
 						<td>{{etage.placeDisponible}}</td>
 						<td>
