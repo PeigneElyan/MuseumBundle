@@ -79,4 +79,18 @@ class Armoire
     
         return $this;
     }
+	
+	public function countExisting($code)
+    {
+         $manager = $this->getEntityManager();
+
+		/** @var Doctrine\ORM\Query $query */
+		$query = $manager->
+        createQuery('SELECT 1 FROM MuseumBundle:Armoire m WHERE m.code= :code')
+            ->setParameter('code', $code)
+            ->setMaxResults(1)
+		;
+
+		return (count($query->getResult()) == 0);
+    }
 }

@@ -53,7 +53,7 @@ etage_add:
     defaults:  { _controller: KEMuseumBundle:Etage:add }
 
 etage_add_erreur:
-    path:      /etage/add/{code}
+    path:      /etage/add/{code}/{type}
     defaults:  { _controller: KEMuseumBundle:Etage:add }
 
 etage_edit:
@@ -94,6 +94,10 @@ etage_ordre_down:
 
 armoire_add:
     path:      /armoire/add
+    defaults:  { _controller: KEMuseumBundle:Armoire:add }
+
+armoire_add_erreur:
+    path:      /armoire/add/{code}
     defaults:  { _controller: KEMuseumBundle:Armoire:add }
 
 armoire_edit:
