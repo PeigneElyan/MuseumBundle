@@ -52,6 +52,9 @@ etage_add:
     path:      /etage/add
     defaults:  { _controller: KEMuseumBundle:Etage:add }
 
+etage_add_erreur:
+    path:      /etage/add/{code}
+    defaults:  { _controller: KEMuseumBundle:Etage:add }
 
 etage_edit:
     path:      /etage/edit/{code}

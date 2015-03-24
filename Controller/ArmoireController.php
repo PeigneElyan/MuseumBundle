@@ -30,7 +30,7 @@ class ArmoireController extends Controller
 			$em->persist($armoire);
 			$em->flush();
 			
-			return $this->redirect($this->generateUrl('home'));
+			return $this->redirect($this->generateUrl('home_action', array('type' => 'succes', 'codeMessage' => '7')));
 		}
 			
 		return $this->render('KEMuseumBundle:Armoire:add.html.twig', array(

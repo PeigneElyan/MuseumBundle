@@ -33,6 +33,11 @@ class EtageController extends Controller
 		$form->handleRequest($request);
 			
 		if ($form->isValid()) {		
+			if($armoires == null)
+			{
+				return $this->redirect($this->generateUrl('etage_add_erreur', array(
+				'code' => $code)));
+			}
 			$etage->onCreate();	
 			$etage->setIdArmoire($armoires->findOneByCode($etage->getIdArmoire())->getId());
 			$count = $em->getRepository('KEMuseumBundle:Etage')->getNbForArmoire($etage->getIdArmoire());
@@ -184,6 +189,7 @@ class EtageController extends Controller
     {
 		$em = $this->getDoctrine()->getManager();
 		$etages = $em->getRepository('KEMuseumBundle:Etage')->findAll();
+		$armoires = $em->getRepository('KEMuseumBundle:Armoire')->findAll();
 		
         $form = $this->get('form.factory')->createBuilder('form')
 			->add('code','text')
@@ -209,7 +215,7 @@ class EtageController extends Controller
 			}	
 		}	
 		return $this->render('KEMuseumBundle:Etage:indexConsult.html.twig', array(
-			'form' => $form->createView(), 'etages' => $etages
+			'form' => $form->createView(), 'etages' => $etages, 'armoires' => $armoires
 		));
     }   
 	
@@ -220,13 +226,14 @@ class EtageController extends Controller
 		$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneByCode($code);
 		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findByIdEtage($etage->getId(),array('ordre'=>'ASC'));
 		$objets = $em->getRepository('KEMuseumBundle:Objet')->findAll();
+		$armoires = $em->getRepository('KEMuseumBundle:Armoire')->findAll();
 
 		if (null === $etage) {
 			throw new NotFoundHttpException("L'étage de numéro ".$code." n'existe pas.");
 		}
 
 		return $this->render('KEMuseumBundle:Etage:consult.html.twig', array(
-			'etage' => $etage, 'ordres' => $ordres, 'objets' => $objets
+			'etage' => $etage, 'ordres' => $ordres, 'objets' => $objets, 'armoires' => $armoires
 			));
     } 
 	
