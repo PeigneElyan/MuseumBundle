@@ -41,13 +41,14 @@ class EtageController extends Controller
 				}
 			}
 			if($erreur){
-				return $this->redirect($this->generateUrl('etage_add_erreur', array('code' => $armoire->getCode(), 'type' => 'codeAlreadyExist' )));
+				return $this->redirect($this->generateUrl('etage_add_erreur', array('code' => $etage->getCode()
+				, 'type' => 'codeAlreadyExist' )));
 			}
 			else{
-				if($armoires == null)
+				if($armoires->findOneByCode($etage->getIdArmoire()) == null)
 				{
 					return $this->redirect($this->generateUrl('etage_add_erreur', array(
-					'code' => $code, 'type' => 'codeAlreadyExist')));
+					'code' => $etage->getIdArmoire(), 'type' => 'armoireNotExist')));
 				}
 				$etage->onCreate();	
 				$etage->setIdArmoire($armoires->findOneByCode($etage->getIdArmoire())->getId());
@@ -69,7 +70,7 @@ class EtageController extends Controller
 			'form' => $form->createView(),
 		));
     } 
-	
+
 	
 	public function editAction($code, Request $request)
     {
