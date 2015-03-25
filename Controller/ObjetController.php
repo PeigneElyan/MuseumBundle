@@ -17,9 +17,11 @@ class ObjetController extends Controller
 
 	public function addAction(Request $request)
     {
-		
+		$em = $this->getDoctrine()->getManager();
+		$objets = $em->getRepository('KEMuseumBundle:Objet')->findAll();
 		$objet = new Objet();
 		$ordre = new Ordre();
+		$erreur = false;
 
 		$form = $this->get('form.factory')->createBuilder('form', $objet)
 			->add('code','text')
@@ -34,15 +36,25 @@ class ObjetController extends Controller
 		$form->handleRequest($request);
 		
 		if ($form->isValid()) {
-			$em = $this->getDoctrine()->getManager();				
-			$em->persist($objet);
-			$em->flush();
-			$ordre->setIdObjet($objet->getId());
-			$em->persist($ordre);
-			$em->flush();
-			
-			return $this->redirect($this->generateUrl('home_action', array('type' => 'succes', 'codeMessage' => '1')));
-
+			foreach($objets as $val){
+				if($objet->getCode() == $val->getCode()){
+					$erreur = true;
+				}
+			}
+			if($erreur){
+				return $this->redirect($this->generateUrl('objet_add_erreur', array('code' => $objet->getCode()
+				, 'type' => 'codeAlreadyExist' )));
+			}
+			else{
+				$em = $this->getDoctrine()->getManager();				
+				$em->persist($objet);
+				$em->flush();
+				$ordre->setIdObjet($objet->getId());
+				$em->persist($ordre);
+				$em->flush();
+				
+				return $this->redirect($this->generateUrl('home_action', array('type' => 'succes', 'codeMessage' => '1')));
+			}
 		}
 			
 		return $this->render('KEMuseumBundle:Objet:add.html.twig', array(

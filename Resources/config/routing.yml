@@ -20,6 +20,10 @@ objet_add:
     path:      /objet/add
     defaults:  { _controller: KEMuseumBundle:Objet:add }
 
+objet_add_erreur:
+    path:      /objet/add/{code}/{type}
+    defaults:  { _controller: KEMuseumBundle:Objet:add }
+
 objet_edit:
     path:      /objet/edit/{code}
     defaults:  { _controller: KEMuseumBundle:Objet:edit }
