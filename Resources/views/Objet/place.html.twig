@@ -42,7 +42,11 @@
 		{% set nbEtageNonPlein = 0 %}
 		{% for etage in etages %}
 			{% if etage.placeDisponible >= objet.longueur %}
+			{% if etage.profondeur >= objet.profondeur %}
+			{% if etage.hauteur >= objet.hauteur %}
 				{% set nbEtageNonPlein = nbEtageNonPlein + 1 %}
+			{% endif %}
+			{% endif %}
 			{% endif %}
 		{% endfor %}
 		
@@ -56,16 +60,21 @@
 						<th>Code Etage</th>
 						<th>Etat</th>
 						<th>Armoire</th>
-						<th>Place restante</th>
+						<th>Longueur restante</th>
+						<th>Profondeur</th>
+						<th>Hauteur</th>
 						<th>Action</th>
 					</tr>
 					</thead>
 					<tbody>
 					{% for etage in etages %}
+					{% if etage.placeDisponible >= objet.longueur %}
+					{% if etage.profondeur >= objet.profondeur %}
+					{% if etage.hauteur >= objet.hauteur %}
 					{% set pourcent = 100 - 100*etage.placeDisponible / etage.longueur %}
 					<tr>
 						<td>{{etage.code}}</td>
-						<td width="50%">
+						<td width="40%">
 								<div class="progress">
 									<div class="progress-bar" role="progressbar" aria-valuenow="{{pourcent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pourcent}}%;">
 										{{pourcent|number_format}}%
@@ -80,6 +89,8 @@
 							{% endfor %}
 							</td>
 						<td>{{etage.placeDisponible}}</td>
+						<td>{{etage.profondeur}}</td>
+						<td>{{etage.hauteur}}</td>
 						<td>
 							{% if etage.placeDisponible >= objet.longueur %}
 								<a href="{{ path('etage_placement_objet', {'codeEtage': etage.code, 'codeObjet': objet.code}) }}" class="btn btn-default">
@@ -88,6 +99,9 @@
 							{% endif %}							
 						</td>
 					</tr>
+					{% endif %}
+					{% endif %}
+					{% endif %}
 					{% endfor %}
 					</tbody>
 				</table>

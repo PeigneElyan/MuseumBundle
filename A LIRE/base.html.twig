@@ -8,13 +8,25 @@
 
   <title>{% block title %}Régie de collection de Musée{% endblock %}</title>
 
+{#
+  //BOOTSTRAP EN LIGNE	
   {% block stylesheets %}
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
   {% endblock %}
 
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>  
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-  
+ 
+ //BOOTSTRAP EN LOCAL
+#}
+{% stylesheets '@KEMuseumBundle/Resources/public/css/*' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
+
+{% javascripts '@KEMuseumBundle/Resources/public/js/*' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
 </head>
 
 <body>
