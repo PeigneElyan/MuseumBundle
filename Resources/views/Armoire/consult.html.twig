@@ -51,6 +51,9 @@
 					<tr>
 						<th>Ordre</th>
 						<th>Code étage</th>
+						<th>Longueur</th>
+						<th>Profondeur</th>
+						<th>Hauteur</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -70,6 +73,9 @@
 										{% endif %}
 									</td>
 									<td>{{etage.code}}</td>
+									<td>{{etage.longueur}}</td>
+									<td>{{etage.profondeur}}</td>
+									<td>{{etage.hauteur}}</td>
 									<td>
 										<a href="{{ path('etage_consult', {'code': etage.code}) }}" class="btn btn-default">
 											<i class="glyphicon glyphicon-eye-open"></i>

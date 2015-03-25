@@ -66,7 +66,7 @@ class Etage
     /**
      * @var integer
      *
-     * @ORM\Column(name="ordre", type="integer", nullable = true)
+     * @ORM\Column(name="ordreArmoire", type="integer", nullable = true)
      */
     private $ordreArmoire;
 

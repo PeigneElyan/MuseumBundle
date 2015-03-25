@@ -178,14 +178,17 @@ class ArmoireController extends Controller
 		public function ordreUpAction($idArmoire, $idEtage){
 	
 		$em = $this->getDoctrine()->getManager();
+		$armoire = $em->getRepository('KEMuseumBundle:Armoire')->findOneById($idArmoire);
 		$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneById($idEtage);
-		$ordreUp = $em->getRepository('KEMuseumBundle:Etage')
-					->findOneBy(array('idArmoire' => $idArmoire,'ordreArmoire' => ($etage->getOrdreArmoire())-1));
+		$ordreUp = $em->getRepository('KEMuseumBundle:Etage')->findOneBy(array(
+																	'idArmoire' => $idArmoire,
+																	'ordreArmoire' => ($etage->getOrdreArmoire())-1
+																	));
 	
-		$ordreUp->setOrdreArmoire($ordre->getOrdreArmoire());
-		$etage->setOrdreArmoire(($ordre->getOrdreArmoire())-1);
+		$ordreUp->setOrdreArmoire($etage->getOrdreArmoire());
+		$etage->setOrdreArmoire(($etage->getOrdreArmoire())-1);
 		
-		$em->persist($ordre);
+		$em->persist($etage);
 		$em->persist($ordreUp);
 		$em->flush();
 		
@@ -196,14 +199,17 @@ class ArmoireController extends Controller
 		public function ordreDownAction($idArmoire, $idEtage){
 	
 		$em = $this->getDoctrine()->getManager();
-		$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneById($idEtage);
-		$ordreDown = $em->getRepository('KEMuseumBundle:Etage')
-					->findOneBy(array('idArmoire' => $idArmoire,'ordreArmoire' => ($etage->getOrdreArmoire())+1));
-	
-		$ordreDown->setOrdreArmoire($ordre->getOrdreArmoire());
-		$etage->setOrdreArmoire(($ordre->getOrdreArmoire())+1);
+		$armoire = $em->getRepository('KEMuseumBundle:Armoire')->findOneById($idArmoire);
+		$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneById($idEtage);		
+		$ordreDown = $em->getRepository('KEMuseumBundle:Etage')->findOneBy(array(
+																	'idArmoire' => $idArmoire,
+																	'ordreArmoire' => ($etage->getOrdreArmoire())+1
+																	));
 		
-		$em->persist($ordre);
+		$ordreDown->setOrdreArmoire($etage->getOrdreArmoire());
+		$etage->setOrdreArmoire(($etage->getOrdreArmoire())+1);
+		
+		$em->persist($etage);
 		$em->persist($ordreDown);
 		$em->flush();
 		
