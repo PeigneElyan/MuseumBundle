@@ -162,17 +162,54 @@ class ArmoireController extends Controller
 
 		$armoire = $em->getRepository('KEMuseumBundle:Armoire')->findOneByCode($code);
 		$etages = $em->getRepository('KEMuseumBundle:Etage')->findByIdArmoire($armoire->getId(),array('ordreArmoire'=>'ASC'));
-		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findAll();
+		$ordres = $em->getRepository('KEMuseumBundle:Ordre')->findAllASC();
 		$objets = $em->getRepository('KEMuseumBundle:Objet')->findAll();
 
-		if (null === $etage) {
+		if (null === $armoire) {
 			throw new NotFoundHttpException("L'armoire de numéro ".$code." n'existe pas.");
 		}
 
 		return $this->render('KEMuseumBundle:Armoire:consult.html.twig', array(
-			'armoire' => $armoire,'etages' => $etage, 'ordres' => $ordres, 'objets' => $objets
+			'armoire' => $armoire,'etages' => $etages, 'ordres' => $ordres, 'objets' => $objets
 			));
     } 	
+	
+	
+		public function ordreUpAction($idArmoire, $idEtage){
+	
+		$em = $this->getDoctrine()->getManager();
+		$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneById($idEtage);
+		$ordreUp = $em->getRepository('KEMuseumBundle:Etage')
+					->findOneBy(array('idArmoire' => $idArmoire,'ordreArmoire' => ($etage->getOrdreArmoire())-1));
+	
+		$ordreUp->setOrdreArmoire($ordre->getOrdreArmoire());
+		$etage->setOrdreArmoire(($ordre->getOrdreArmoire())-1);
+		
+		$em->persist($ordre);
+		$em->persist($ordreUp);
+		$em->flush();
+		
+		return $this->redirect($this->generateUrl('armoire_consult', array(
+				'code' => $armoire->getCode())));
+	}
+		
+		public function ordreDownAction($idArmoire, $idEtage){
+	
+		$em = $this->getDoctrine()->getManager();
+		$etage = $em->getRepository('KEMuseumBundle:Etage')->findOneById($idEtage);
+		$ordreDown = $em->getRepository('KEMuseumBundle:Etage')
+					->findOneBy(array('idArmoire' => $idArmoire,'ordreArmoire' => ($etage->getOrdreArmoire())+1));
+	
+		$ordreDown->setOrdreArmoire($ordre->getOrdreArmoire());
+		$etage->setOrdreArmoire(($ordre->getOrdreArmoire())+1);
+		
+		$em->persist($ordre);
+		$em->persist($ordreDown);
+		$em->flush();
+		
+		return $this->redirect($this->generateUrl('armoire_consult', array(
+				'code' => $armoire->getCode())));
+	}
 		
 }
 ?>

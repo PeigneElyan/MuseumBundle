@@ -7,62 +7,36 @@
 {% endblock %}
 
 {% block body %}
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-  <style>
-  #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-  #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
-  #sortable li span { position: absolute; margin-left: -1.3em; }
-  </style>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
-
-        <h1>Consultation d'un étage</h1>
+        <h1>Consultation d'une armoire</h1>
         
         <div class="table-responsive">
 			
 			<h2>
-				Etat : 
-				{% if etage.placeDisponible == etage.longueur %}
-					<font color="green"> Vide</font>
-				{% elseif etage.placeDisponible > 0%}
-					<font color="blue"> Disponible</font>
-				{% else %}
-					<font color="red"> Plein</font>
-				{% endif %}
+				{% set nbEtage = etages|length %}
+				Nombre d'étagères : {{nbEtage}}
 			</h2>
 			<h3> Action :
-				<a href="{{ path('etage_edit', {'code': etage.code}) }}" class="btn btn-default">
-					<i class="glyphicon glyphicon-edit"></i>
-				</a>
-				{% if etage.placeDisponible == etage.longueur %}
-					<a href="{{ path('etage_delete', {'code': etage.code}) }}" class="btn btn-default">
-						<i class="glyphicon glyphicon-trash"></i>
-					</a>	
-				{% endif %}
+			<a href="{{ path('armoire_edit', {'code': armoire.code}) }}" class="btn btn-default">
+				<i class="glyphicon glyphicon-edit"></i>
+			</a>
+			<a href="{{ path('armoire_delete', {'code': armoire.code}) }}" class="btn btn-default">
+				<i class="glyphicon glyphicon-trash"></i>
+			</a>
 			</h3>
-			<h3>Caractéristiques de l'étage : </h3>
+			<h3>Caractéristiques de l'armoire : </h3>
 			<div class="well">
 			<table class="table">
 				<tbody>
 					<tr>
 						<td> <b>Code</b> </td>
-						<td> {{etage.code}} </td>
+						<td> {{armoire.code}} </td>
 					</tr>
 					<tr>
-						<td> <b>Longueur </b></td>
-						<td> {{etage.longueur}} </td>
-					</tr>
-					<tr>
-						<td> <b>Profondeur </b></td>
-						<td> {{etage.profondeur}} </td>
-					</tr>
-					<tr>
-						<td> <b>Hauteur </b></td>
-						<td> {{etage.hauteur}} </td>
-					</tr>
-					<tr>
-						<td> <b>Place disponible </b></td>
-						<td> {{etage.placeDisponible}} </td>
+						<td> <b>Nombre d'étages </b></td>
+						<td> {{nbEtage}} </td>
 					</tr>
 				</tbody>
 			</table>
@@ -70,89 +44,99 @@
 		</div>
 		
 		<div class="table-responsive">
-			<h3>Liste des Objets liés : </h3>
+			<h3>Liste des étages : </h3>
 			<div class="well">
 			<table class="table" id="table-1">
 				<thead>
 					<tr>
 						<th>Ordre</th>
-						<th>Code objet</th>
-						<th>Nom</th>
-						<th>Longueur</th>						
+						<th>Code étage</th>
 						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
-					{% for ordre in ordres %}
-						{% for objet in objets %}
-							{% if objet.id == ordre.idObjet %}
+					{% for etage in etages %}
 								<tr>
 									<td>
-										{% if ordre.ordre > 1 %}
-										<a href="{{ path('etage_ordre_up', {'idEtage': etage.id, 'idObjet': objet.id}) }}" class="btn btn-default">
+										{% if etage.ordreArmoire > 1 %}
+										<a href="{{ path('armoire_ordre_up', {'idArmoire': armoire.id, 'idEtage': etage.id}) }}" class="btn btn-default">
 											<i class="glyphicon glyphicon-chevron-up"></i>
 										</a>
 										{% endif %}
-										{% if ordre.ordre != ordres|length %}
-										<a href="{{ path('etage_ordre_down', {'idEtage': etage.id, 'idObjet': objet.id}) }}" class="btn btn-default">
+										{% if etage.ordreArmoire != etages|length %}
+										<a href="{{ path('armoire_ordre_down', {'idArmoire': armoire.id, 'idEtage': etage.id}) }}" class="btn btn-default">
 											<i class="glyphicon glyphicon-chevron-down"></i>
 										</a>
 										{% endif %}
 									</td>
-									<td>{{objet.code}}</td>
-									<td>{{objet.nom}}</td>
-									<td>{{objet.longueur}}</td>
+									<td>{{etage.code}}</td>
 									<td>
-										<a href="{{ path('objet_consult', {'code': objet.code}) }}" class="btn btn-default">
+										<a href="{{ path('etage_consult', {'code': etage.code}) }}" class="btn btn-default">
 											<i class="glyphicon glyphicon-eye-open"></i>
-										</a>
-										<a href="{{ path('etage_retirer_objet', {'codeEtage': etage.code, 'codeObjet': objet.code}) }}" class="btn btn-default">
-											<i class="glyphicon glyphicon-remove"></i>
 										</a>
 									</td>
 								</tr>
-							{% endif %}
-						{% endfor %}
 					{% endfor %}
 				</tbody>
 			</table>
 			</div>
 		</div>
-		{% set objetsPourcent = 0 %}
 		<div class="table-responsive">
-			<h3>Modélisation de l'étage : </h3></br>
-					<div id="objetsSurEtagere" style="height:100px;display:table;width:100%;">
+			<h3>Vue de face d'ensemble : </h3></br>
+			<div class="table-responsive">
+			{% for etage in etages %}
+					<div id="{{ etage.code }}" class="table-responsive" style="transform: scaleY(-1);height:{{etage.hauteur}};">
+					<div style="clear:left;width:100%;height:10px;background:#582900;"></div>
 					{% for ordre in ordres %}
+					{% if etage.id == ordre.idEtage %}
 						{% for objet in objets %}
 							{% if objet.id == ordre.idObjet %}
-								<div style="display:table-cell;
-								border-width:2px;
+								<div 
+								id="{{objet.code}}"
+								style="
+								float:left;
+								border-width:1px;
 								border-style:solid;
-								width:{{ordre.pourcent}}%;
-								{% set objetsPourcent = objetsPourcent + ordre.pourcent %}
-								height:100%;
+								{% set objetLongueur = 0 %}
+								{% set objetLongueur = objet.longueur*100/etage.longueur %}
+								width:{{objetLongueur}}%;
 								background:#E8C782;
 								vertical-align:middle;
 								text-align:center;
-								"><strong>{{objet.nom}}</strong></div>
+								-webkit-transform:rotate(180deg);
+								transform: scaleY(-1);
+								"><strong>{{objet.code}}</strong></div>
 							{% endif %}
 						{% endfor %}
+					{% endif %}
 					{% endfor %}
 					</div>
-					<div id="plancherEtagere" style="float:right;width:100%;height:10px;background:#582900;"></div>
+			{% endfor %}
+			</div>
 		</div>
 		<script>
-			var calculerHauteur = function() {
-				console.log(jQuery(	'#plancherEtagere').width());
-				jQuery(	'#objetsSurEtagere').height(jQuery(	'#plancherEtagere').width()/10	);
-				jQuery(	'#objetsSurEtagere').width('{{objetsPourcent}}%');
-				console.log(jQuery(	'#plancherEtagere').width());
-				console.log(jQuery(	'#objetsSurEtagere').width());
-				
+			var calculerHauteurObjet = function() {
+				{% for etage in etages %}
+					{% for ordre in ordres %}
+						{% if etage.id == ordre.idEtage %}
+							{% for objet in objets %}
+								jQuery(	'#{{objet.code}}').height(jQuery('#{{objet.code}}').width()*{{objet.hauteur}}/{{objet.longueur}});
+							{% endfor %}
+						{% endif %}
+					{% endfor %}
+				{% endfor %}
 			};
 			
-			$(window).on('resize',calculerHauteur);
-			jQuery( document ).ready(calculerHauteur);
+			var calculerHauteurEtage = function() {
+				{% for etage in etages %}
+					jQuery(	'#{{etage.code}}').height(jQuery('#{{etage.code}}').width()*{{etage.hauteur}}/{{etage.longueur}});
+				{% endfor %}
+			};
+			
+			$(window).on('resize',calculerHauteurObjet);
+			$(window).on('resize',calculerHauteurEtage);
+			jQuery( document ).ready(calculerHauteurObjet);
+			jQuery( document ).ready(calculerHauteurEtage);
 			
 		</script>
     </body>

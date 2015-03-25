@@ -23,5 +23,10 @@ class OrdreRepository extends EntityRepository
                     ->getSingleScalarResult();
  
     }
+	
+	public function findAllASC()
+    {
+        return $this->findBy(array(), array('ordre' => 'ASC'));
+    }
 
 }
